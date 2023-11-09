@@ -22,6 +22,9 @@ repositories {
 }
 
 dependencies {
+	//토큰 저장소
+	implementation 'net.jodah:expiringmap:0.5.11'
+
 	//암호화
 	implementation 'org.springframework.security:spring-security-crypto:6.1.5'
 

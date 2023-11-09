@@ -1,5 +1,7 @@
-package com.budgetmanagement.budgetmanagement.user.common;
+package com.budgetmanagement.budgetmanagement.common;
 
+import com.budgetmanagement.budgetmanagement.auth.application.AuthService;
+import com.budgetmanagement.budgetmanagement.auth.controller.AuthController;
 import com.budgetmanagement.budgetmanagement.user.application.UserService;
 import com.budgetmanagement.budgetmanagement.user.controller.UserController;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @AutoConfigureMockMvc
 @WebMvcTest({
         UserController.class,
+        AuthController.class
 })
 public class ControllerTest {
 
@@ -23,4 +26,7 @@ public class ControllerTest {
 
     @MockBean
     protected UserService userService;
+
+    @MockBean
+    protected AuthService authService;
 }
