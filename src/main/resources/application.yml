@@ -13,3 +13,12 @@ spring:
       show-sql: true
       properties:
         hibernate.format_sql: true
+
+security:
+  jwt:
+    token:
+      secret-key: c3ByaW5nLWJvb3QtdGVzdC1zZWNyZXQta2V5 #test key
+      access:
+        expire-length: 3600000 #1??
+      refresh:
+        expire-length: 1210000000 #14?
