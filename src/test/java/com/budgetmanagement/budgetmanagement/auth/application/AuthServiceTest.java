@@ -29,13 +29,13 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 public class AuthServiceTest {
 
     @Autowired
-    AuthService authService;
+    private AuthService authService;
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @BeforeEach
     void saveUser() {

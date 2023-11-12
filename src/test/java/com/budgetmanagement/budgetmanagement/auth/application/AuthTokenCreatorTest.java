@@ -19,10 +19,10 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 public class AuthTokenCreatorTest {
 
     @Autowired
-    AuthTokenCreator authTokenCreator;
+    private AuthTokenCreator authTokenCreator;
 
     @Autowired
-    AuthTokenRepository authTokenRepository;
+    private AuthTokenRepository authTokenRepository;
 
     @Nested
     @DisplayName("유저 id로 엑세스 토큰과 리프래쉬 토큰을 생성한다.")
