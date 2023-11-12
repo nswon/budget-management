@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class UserRepositoryTest {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Nested
     @DisplayName("계정으로 유저가 존재하는지 확인한다.")
