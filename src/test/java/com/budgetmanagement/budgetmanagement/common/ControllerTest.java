@@ -4,6 +4,8 @@ import com.budgetmanagement.budgetmanagement.auth.application.AuthService;
 import com.budgetmanagement.budgetmanagement.auth.controller.AuthController;
 import com.budgetmanagement.budgetmanagement.budget.application.BudgetService;
 import com.budgetmanagement.budgetmanagement.budget.controller.BudgetController;
+import com.budgetmanagement.budgetmanagement.expense.application.ExpenseService;
+import com.budgetmanagement.budgetmanagement.expense.controller.ExpenseController;
 import com.budgetmanagement.budgetmanagement.user.application.UserService;
 import com.budgetmanagement.budgetmanagement.user.controller.UserController;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,7 +19,8 @@ import org.springframework.test.web.servlet.MockMvc;
 @WebMvcTest({
         UserController.class,
         AuthController.class,
-        BudgetController.class
+        BudgetController.class,
+        ExpenseController.class
 })
 public class ControllerTest {
 
@@ -35,4 +38,7 @@ public class ControllerTest {
 
     @MockBean
     protected BudgetService budgetService;
+
+    @MockBean
+    protected ExpenseService expenseService;
 }
