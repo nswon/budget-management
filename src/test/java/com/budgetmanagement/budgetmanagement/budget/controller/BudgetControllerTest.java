@@ -30,7 +30,7 @@ public class BudgetControllerTest extends ControllerTest {
         given(budgetService.getBudgetCategories())
                 .willReturn(response);
 
-        mockMvc.perform(get("/budget")
+        mockMvc.perform(get("/budgets")
                         .header("Authorization", "Bearer aaaaaaaa.bbbbbbbb.cccccccc"))
                 .andDo(print())
                 .andExpect(status().isOk());
@@ -53,7 +53,7 @@ public class BudgetControllerTest extends ControllerTest {
             List<BudgetCreateRequest.BudgetByCategory> categories = List.of(shoppingCategory, financeCategory, lifeCategory);
             BudgetCreateRequest budgetCreateRequest = new BudgetCreateRequest(categories);
 
-            mockMvc.perform(post("/budget")
+            mockMvc.perform(post("/budgets")
                             .header("Authorization", "Bearer aaaaaaaa.bbbbbbbb.cccccccc")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(budgetCreateRequest)))
@@ -75,7 +75,7 @@ public class BudgetControllerTest extends ControllerTest {
             List<BudgetCreateRequest.BudgetByCategory> categories = List.of(shoppingCategory, financeCategory, lifeCategory);
             BudgetCreateRequest budgetCreateRequest = new BudgetCreateRequest(categories);
 
-            mockMvc.perform(post("/budget")
+            mockMvc.perform(post("/budgets")
                             .header("Authorization", "Bearer aaaaaaaa.bbbbbbbb.cccccccc")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(budgetCreateRequest)))
@@ -101,7 +101,7 @@ public class BudgetControllerTest extends ControllerTest {
             List<BudgetUpdateRequest.BudgetByCategory> categories = List.of(shoppingCategory, financeCategory, lifeCategory);
             BudgetUpdateRequest budgetCreateRequest = new BudgetUpdateRequest(categories);
 
-            mockMvc.perform(put("/budget")
+            mockMvc.perform(put("/budgets")
                             .header("Authorization", "Bearer aaaaaaaa.bbbbbbbb.cccccccc")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(budgetCreateRequest)))
@@ -122,7 +122,7 @@ public class BudgetControllerTest extends ControllerTest {
             List<BudgetUpdateRequest.BudgetByCategory> categories = List.of(shoppingCategory, financeCategory, lifeCategory);
             BudgetUpdateRequest budgetCreateRequest = new BudgetUpdateRequest(categories);
 
-            mockMvc.perform(put("/budget")
+            mockMvc.perform(put("/budgets")
                             .header("Authorization", "Bearer aaaaaaaa.bbbbbbbb.cccccccc")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(budgetCreateRequest)))
@@ -144,7 +144,7 @@ public class BudgetControllerTest extends ControllerTest {
                     .willReturn(response);
 
             BudgetTotalAmountRequest request = new BudgetTotalAmountRequest(1000);
-            mockMvc.perform(get("/budget/recommendation")
+            mockMvc.perform(get("/budgets/recommendation")
                             .header("Authorization", "Bearer aaaaaaaa.bbbbbbbb.cccccccc")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(request)))
@@ -161,7 +161,7 @@ public class BudgetControllerTest extends ControllerTest {
                     .willReturn(response);
 
             BudgetTotalAmountRequest request = new BudgetTotalAmountRequest(-1);
-            mockMvc.perform(get("/budget/recommendation")
+            mockMvc.perform(get("/budgets/recommendation")
                             .header("Authorization", "Bearer aaaaaaaa.bbbbbbbb.cccccccc")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(request)))
