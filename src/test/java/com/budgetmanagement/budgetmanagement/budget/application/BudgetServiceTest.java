@@ -1,17 +1,16 @@
 package com.budgetmanagement.budgetmanagement.budget.application;
 
-import com.budgetmanagement.budgetmanagement.budget.domain.BudgetCategory;
+import com.budgetmanagement.budgetmanagement.budget.domain.Budget;
 import com.budgetmanagement.budgetmanagement.budget.dto.request.BudgetCreateRequest;
 import com.budgetmanagement.budgetmanagement.budget.dto.request.BudgetTotalAmountRequest;
 import com.budgetmanagement.budgetmanagement.budget.dto.request.BudgetUpdateRequest;
 import com.budgetmanagement.budgetmanagement.budget.dto.response.BudgetCategoryResponse;
-import com.budgetmanagement.budgetmanagement.budget.dto.response.BudgetRecommendationResponse;
-import com.budgetmanagement.budgetmanagement.budget.repository.BudgetCategoryRepository;
+import com.budgetmanagement.budgetmanagement.budget.dto.response.BudgetRecommendResponse;
+import com.budgetmanagement.budgetmanagement.budget.repository.BudgetRepository;
 import com.budgetmanagement.budgetmanagement.user.domain.User;
 import com.budgetmanagement.budgetmanagement.user.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -33,7 +32,7 @@ public class BudgetServiceTest {
     private UserRepository userRepository;
 
     @Autowired
-    private BudgetCategoryRepository budgetCategoryRepository;
+    private BudgetRepository budgetRepository;
 
     private User user;
 
@@ -75,13 +74,13 @@ public class BudgetServiceTest {
 
         //then
         User foundUser = userRepository.getById(user.getId());
-        int ratioSum = foundUser.getBudgetCategories().stream()
-                .mapToInt(BudgetCategory::getRatio)
+        int ratioSum = foundUser.getBudgets().stream()
+                .mapToInt(Budget::getRatio)
                 .sum();
 
         assertAll(() -> {
-            assertThat(budgetCategoryRepository.findAll()).isNotEmpty();
-            assertThat(foundUser.getBudgetCategories()).isNotEmpty();
+            assertThat(budgetRepository.findAll()).isNotEmpty();
+            assertThat(foundUser.getBudgets()).isNotEmpty();
             assertThat(ratioSum).isEqualTo(100); //카테고리 비율 체크
         });
     }
@@ -108,19 +107,19 @@ public class BudgetServiceTest {
 
         //then
         User foundUser = userRepository.getById(user.getId());
-        int ratioSum = foundUser.getBudgetCategories().stream()
-                .mapToInt(BudgetCategory::getRatio)
+        int ratioSum = foundUser.getBudgets().stream()
+                .mapToInt(Budget::getRatio)
                 .sum();
 
         assertAll(() -> {
-            assertThat(budgetCategoryRepository.findAll()).hasSize(2); //변경된 카테고리 개수 체크
-            assertThat(foundUser.getBudgetCategories()).hasSize(2); //변경된 카테고리 개수 체크
+            assertThat(budgetRepository.findAll()).hasSize(2); //변경된 카테고리 개수 체크
+            assertThat(foundUser.getBudgets()).hasSize(2); //변경된 카테고리 개수 체크
             assertThat(ratioSum).isEqualTo(100); //카테고리 비율 체크
         });
     }
 
     @Test
-    @DisplayName("총액으로 카테고리 별 예산을 통계하여 반환한다. (추천)")
+    @DisplayName("총액으로 카테고리 별 예산을 추천한다.")
     void getRecommendationBudget() {
         //given
         BudgetCreateRequest.BudgetByCategory shoppingCategory = new BudgetCreateRequest.BudgetByCategory("쇼핑", 10000);
@@ -146,11 +145,11 @@ public class BudgetServiceTest {
 
         //when
         BudgetTotalAmountRequest budgetTotalAmountRequest = new BudgetTotalAmountRequest(100000);
-        List<BudgetRecommendationResponse> response = budgetService.getRecommendationBudget(budgetTotalAmountRequest);
+        List<BudgetRecommendResponse> response = budgetService.getRecommendationBudget(budgetTotalAmountRequest);
 
         //then
         int totalAmount = response.stream()
-                .mapToInt(BudgetRecommendationResponse::amount)
+                .mapToInt(BudgetRecommendResponse::amount)
                 .sum();
 
         assertAll(() -> {

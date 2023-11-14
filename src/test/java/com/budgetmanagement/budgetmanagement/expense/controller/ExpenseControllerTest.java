@@ -1,13 +1,12 @@
 package com.budgetmanagement.budgetmanagement.expense.controller;
 
-import com.budgetmanagement.budgetmanagement.budget.domain.BudgetCategoryType;
+import com.budgetmanagement.budgetmanagement.budget.domain.BudgetCategory;
+import com.budgetmanagement.budgetmanagement.budget.dto.response.BudgetCategoryAmountResponse;
 import com.budgetmanagement.budgetmanagement.common.ControllerTest;
+import com.budgetmanagement.budgetmanagement.expense.domain.ExpenseMessage;
 import com.budgetmanagement.budgetmanagement.expense.dto.request.ExpenseCreateRequest;
 import com.budgetmanagement.budgetmanagement.expense.dto.request.ExpenseUpdateRequest;
-import com.budgetmanagement.budgetmanagement.expense.dto.response.ExpenseCategoryTotalAmountResponse;
-import com.budgetmanagement.budgetmanagement.expense.dto.response.ExpenseDetailResponse;
-import com.budgetmanagement.budgetmanagement.expense.dto.response.ExpenseResponse;
-import com.budgetmanagement.budgetmanagement.expense.dto.response.ExpensesResponse;
+import com.budgetmanagement.budgetmanagement.expense.dto.response.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -61,7 +60,7 @@ public class ExpenseControllerTest extends ControllerTest {
     @DisplayName("지출 목록을 조회한다.")
     void getExpenses() throws Exception {
         List<ExpenseCategoryTotalAmountResponse> categoryTotalAmounts = List.of(new ExpenseCategoryTotalAmountResponse(100));
-        List<ExpenseResponse> expenses = List.of(new ExpenseResponse(LocalDateTime.now(), 100, BudgetCategoryType.FOOD));
+        List<ExpenseResponse> expenses = List.of(new ExpenseResponse(LocalDateTime.now(), 100, BudgetCategory.FOOD));
         ExpensesResponse response = new ExpensesResponse(100, categoryTotalAmounts, expenses);
 
         given(expenseService.getExpenses(any(), any(), anyInt(), anyInt()))
@@ -111,5 +110,20 @@ public class ExpenseControllerTest extends ControllerTest {
                         .header("Authorization", "Bearer aaaaaaaa.bbbbbbbb.cccccccc"))
                 .andDo(print())
                 .andExpect(status().isNoContent());
+    }
+
+    @Test
+    @DisplayName("오늘 사용 가능한 지출을 추천한다.")
+    void recommendExpense() throws Exception {
+        List<BudgetCategoryAmountResponse> categoryAmounts = List.of(new BudgetCategoryAmountResponse("식비", 5000));
+        ExpenseRecommendResponse response = new ExpenseRecommendResponse(1000, categoryAmounts, ExpenseMessage.GOOD.getMessage());
+
+        given(expenseService.recommendExpense(any()))
+                .willReturn(response);
+
+        mockMvc.perform(get("/expenses/today/recommendation")
+                        .header("Authorization", "Bearer aaaaaaaa.bbbbbbbb.cccccccc"))
+                .andDo(print())
+                .andExpect(status().isOk());
     }
 }

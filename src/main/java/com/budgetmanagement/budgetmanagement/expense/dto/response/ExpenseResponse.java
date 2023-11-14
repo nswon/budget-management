@@ -1,6 +1,6 @@
 package com.budgetmanagement.budgetmanagement.expense.dto.response;
 
-import com.budgetmanagement.budgetmanagement.budget.domain.BudgetCategoryType;
+import com.budgetmanagement.budgetmanagement.budget.domain.BudgetCategory;
 
 import java.time.LocalDateTime;
 
@@ -9,7 +9,7 @@ public record ExpenseResponse(
         int amount,
         String category
 ) {
-    public ExpenseResponse(LocalDateTime date, int amount, BudgetCategoryType category) {
+    public ExpenseResponse(LocalDateTime date, int amount, BudgetCategory category) {
         this(date, amount, category.getName());
     }
 }

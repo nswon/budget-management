@@ -7,7 +7,7 @@ import com.budgetmanagement.budgetmanagement.budget.dto.request.BudgetUpdateRequ
 import com.budgetmanagement.budgetmanagement.budget.dto.request.BudgetCreateRequest;
 import com.budgetmanagement.budgetmanagement.budget.dto.request.BudgetTotalAmountRequest;
 import com.budgetmanagement.budgetmanagement.budget.dto.response.BudgetCategoryResponse;
-import com.budgetmanagement.budgetmanagement.budget.dto.response.BudgetRecommendationResponse;
+import com.budgetmanagement.budgetmanagement.budget.dto.response.BudgetRecommendResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/budget")
+@RequestMapping("/budgets")
 public class BudgetController {
     private final BudgetService budgetService;
 
@@ -48,11 +48,11 @@ public class BudgetController {
     }
 
     @GetMapping("/recommendation")
-    public ResponseEntity<List<BudgetRecommendationResponse>> getRecommendationBudget(
+    public ResponseEntity<List<BudgetRecommendResponse>> getRecommendationBudget(
             @AuthenticationPrincipal LoginUser loginUser,
             @RequestBody @Valid BudgetTotalAmountRequest budgetTotalAmountRequest
     ) {
-        List<BudgetRecommendationResponse> response = budgetService.getRecommendationBudget(budgetTotalAmountRequest);
+        List<BudgetRecommendResponse> response = budgetService.getRecommendationBudget(budgetTotalAmountRequest);
         return ResponseEntity.ok(response);
     }
 }

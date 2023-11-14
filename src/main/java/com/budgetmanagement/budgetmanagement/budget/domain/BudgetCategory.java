@@ -1,41 +1,38 @@
 package com.budgetmanagement.budgetmanagement.budget.domain;
 
-import com.budgetmanagement.budgetmanagement.user.domain.User;
-import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
+import com.budgetmanagement.budgetmanagement.budget.exception.BudgetNotFoundException;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
-@Entity
+import java.util.Arrays;
+import java.util.List;
+
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class BudgetCategory {
+@AllArgsConstructor
+public enum BudgetCategory {
+    FOOD("식비"),
+    TRANSPORTATION("교통"),
+    FINANCE("금융"),
+    SHOPPING("쇼핑"),
+    LIFE("생활"),
+    RESIDENCE("주거/통신"),
+    HEALTHCARE("의료/건강"),
+    LEISURE("여가");
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private final String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    public static List<BudgetCategory> getCategories() {
+        return List.of(values());
+    }
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "category_type", nullable = false)
-    private BudgetCategoryType categoryType;
+    public static BudgetCategory toEnum(String target) {
+        return Arrays.stream(values())
+                .filter(category -> category.isSameCategory(target))
+                .findFirst()
+                .orElseThrow(BudgetNotFoundException::new);
+    }
 
-    @Column(nullable = false)
-    private int amount;
-
-    @Column(nullable = false)
-    private int ratio;
-
-    @Builder
-    public BudgetCategory(User user, BudgetCategoryType categoryType, int amount, int ratio) {
-        this.user = user;
-        user.createBudgetCategory(this);
-        this.categoryType = categoryType;
-        this.amount = amount;
-        this.ratio = ratio;
+    private boolean isSameCategory(String category) {
+        return this.name.equals(category);
     }
 }

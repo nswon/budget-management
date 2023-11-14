@@ -1,11 +1,11 @@
 package com.budgetmanagement.budgetmanagement.budget.controller;
 
-import com.budgetmanagement.budgetmanagement.budget.domain.BudgetCategoryType;
+import com.budgetmanagement.budgetmanagement.budget.domain.BudgetCategory;
 import com.budgetmanagement.budgetmanagement.budget.dto.request.BudgetCreateRequest;
 import com.budgetmanagement.budgetmanagement.budget.dto.request.BudgetTotalAmountRequest;
 import com.budgetmanagement.budgetmanagement.budget.dto.request.BudgetUpdateRequest;
 import com.budgetmanagement.budgetmanagement.budget.dto.response.BudgetCategoryResponse;
-import com.budgetmanagement.budgetmanagement.budget.dto.response.BudgetRecommendationResponse;
+import com.budgetmanagement.budgetmanagement.budget.dto.response.BudgetRecommendResponse;
 import com.budgetmanagement.budgetmanagement.common.ControllerTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -26,11 +26,11 @@ public class BudgetControllerTest extends ControllerTest {
     @Test
     @DisplayName("예산 카테고리 목록을 조회한다.")
     void getBudgetCategories() throws Exception {
-        List<BudgetCategoryResponse> response = List.of(new BudgetCategoryResponse(BudgetCategoryType.FOOD));
+        List<BudgetCategoryResponse> response = List.of(new BudgetCategoryResponse(BudgetCategory.FOOD));
         given(budgetService.getBudgetCategories())
                 .willReturn(response);
 
-        mockMvc.perform(get("/budget")
+        mockMvc.perform(get("/budgets")
                         .header("Authorization", "Bearer aaaaaaaa.bbbbbbbb.cccccccc"))
                 .andDo(print())
                 .andExpect(status().isOk());
@@ -53,7 +53,7 @@ public class BudgetControllerTest extends ControllerTest {
             List<BudgetCreateRequest.BudgetByCategory> categories = List.of(shoppingCategory, financeCategory, lifeCategory);
             BudgetCreateRequest budgetCreateRequest = new BudgetCreateRequest(categories);
 
-            mockMvc.perform(post("/budget")
+            mockMvc.perform(post("/budgets")
                             .header("Authorization", "Bearer aaaaaaaa.bbbbbbbb.cccccccc")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(budgetCreateRequest)))
@@ -75,7 +75,7 @@ public class BudgetControllerTest extends ControllerTest {
             List<BudgetCreateRequest.BudgetByCategory> categories = List.of(shoppingCategory, financeCategory, lifeCategory);
             BudgetCreateRequest budgetCreateRequest = new BudgetCreateRequest(categories);
 
-            mockMvc.perform(post("/budget")
+            mockMvc.perform(post("/budgets")
                             .header("Authorization", "Bearer aaaaaaaa.bbbbbbbb.cccccccc")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(budgetCreateRequest)))
@@ -101,7 +101,7 @@ public class BudgetControllerTest extends ControllerTest {
             List<BudgetUpdateRequest.BudgetByCategory> categories = List.of(shoppingCategory, financeCategory, lifeCategory);
             BudgetUpdateRequest budgetCreateRequest = new BudgetUpdateRequest(categories);
 
-            mockMvc.perform(put("/budget")
+            mockMvc.perform(put("/budgets")
                             .header("Authorization", "Bearer aaaaaaaa.bbbbbbbb.cccccccc")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(budgetCreateRequest)))
@@ -122,7 +122,7 @@ public class BudgetControllerTest extends ControllerTest {
             List<BudgetUpdateRequest.BudgetByCategory> categories = List.of(shoppingCategory, financeCategory, lifeCategory);
             BudgetUpdateRequest budgetCreateRequest = new BudgetUpdateRequest(categories);
 
-            mockMvc.perform(put("/budget")
+            mockMvc.perform(put("/budgets")
                             .header("Authorization", "Bearer aaaaaaaa.bbbbbbbb.cccccccc")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(budgetCreateRequest)))
@@ -138,13 +138,13 @@ public class BudgetControllerTest extends ControllerTest {
         @Test
         @DisplayName("성공")
         void success() throws Exception {
-            List<BudgetRecommendationResponse> response = List.of(new BudgetRecommendationResponse("금융", 1000));
+            List<BudgetRecommendResponse> response = List.of(new BudgetRecommendResponse("금융", 1000));
 
             given(budgetService.getRecommendationBudget(any()))
                     .willReturn(response);
 
             BudgetTotalAmountRequest request = new BudgetTotalAmountRequest(1000);
-            mockMvc.perform(get("/budget/recommendation")
+            mockMvc.perform(get("/budgets/recommendation")
                             .header("Authorization", "Bearer aaaaaaaa.bbbbbbbb.cccccccc")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(request)))
@@ -155,13 +155,13 @@ public class BudgetControllerTest extends ControllerTest {
         @Test
         @DisplayName("실패: 0원 미만인 총액")
         void fail() throws Exception {
-            List<BudgetRecommendationResponse> response = List.of(new BudgetRecommendationResponse("금융", 1000));
+            List<BudgetRecommendResponse> response = List.of(new BudgetRecommendResponse("금융", 1000));
 
             given(budgetService.getRecommendationBudget(any()))
                     .willReturn(response);
 
             BudgetTotalAmountRequest request = new BudgetTotalAmountRequest(-1);
-            mockMvc.perform(get("/budget/recommendation")
+            mockMvc.perform(get("/budgets/recommendation")
                             .header("Authorization", "Bearer aaaaaaaa.bbbbbbbb.cccccccc")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(request)))

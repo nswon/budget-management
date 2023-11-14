@@ -1,9 +1,9 @@
 package com.budgetmanagement.budgetmanagement.budget.dto.response;
 
-import com.budgetmanagement.budgetmanagement.budget.domain.BudgetCategoryType;
+import com.budgetmanagement.budgetmanagement.budget.domain.BudgetCategory;
 
 public record BudgetCategoryResponse(String category) {
-    public BudgetCategoryResponse(BudgetCategoryType budgetCategoryType) {
-        this(budgetCategoryType.getName());
+    public BudgetCategoryResponse(BudgetCategory budgetCategory) {
+        this(budgetCategory.getName());
     }
 }
