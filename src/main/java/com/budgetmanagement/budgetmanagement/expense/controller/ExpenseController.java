@@ -6,6 +6,7 @@ import com.budgetmanagement.budgetmanagement.expense.application.ExpenseService;
 import com.budgetmanagement.budgetmanagement.expense.dto.request.ExpenseCreateRequest;
 import com.budgetmanagement.budgetmanagement.expense.dto.request.ExpenseUpdateRequest;
 import com.budgetmanagement.budgetmanagement.expense.dto.response.ExpenseDetailResponse;
+import com.budgetmanagement.budgetmanagement.expense.dto.response.ExpenseRecommendResponse;
 import com.budgetmanagement.budgetmanagement.expense.dto.response.ExpensesResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -72,5 +73,13 @@ public class ExpenseController {
     ) {
         expenseService.excludeExpense(expenseId);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/today/recommendation")
+    public ResponseEntity<ExpenseRecommendResponse> recommendExpense(
+            @AuthenticationPrincipal LoginUser loginUser
+    ) {
+        ExpenseRecommendResponse response = expenseService.recommendExpense(loginUser.id());
+        return ResponseEntity.ok(response);
     }
 }

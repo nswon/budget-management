@@ -1,10 +1,14 @@
 package com.budgetmanagement.budgetmanagement.expense.application;
 
-import com.budgetmanagement.budgetmanagement.budget.domain.BudgetCategoryType;
+import com.budgetmanagement.budgetmanagement.budget.domain.Budget;
+import com.budgetmanagement.budgetmanagement.budget.domain.BudgetCategory;
+import com.budgetmanagement.budgetmanagement.budget.dto.response.BudgetCategoryAmountResponse;
+import com.budgetmanagement.budgetmanagement.budget.repository.BudgetRepository;
 import com.budgetmanagement.budgetmanagement.expense.domain.Expense;
 import com.budgetmanagement.budgetmanagement.expense.dto.request.ExpenseCreateRequest;
 import com.budgetmanagement.budgetmanagement.expense.dto.request.ExpenseUpdateRequest;
 import com.budgetmanagement.budgetmanagement.expense.dto.response.ExpenseDetailResponse;
+import com.budgetmanagement.budgetmanagement.expense.dto.response.ExpenseRecommendResponse;
 import com.budgetmanagement.budgetmanagement.expense.dto.response.ExpensesResponse;
 import com.budgetmanagement.budgetmanagement.expense.exception.ExpenseNotFoundException;
 import com.budgetmanagement.budgetmanagement.expense.repository.ExpenseRepository;
@@ -34,6 +38,9 @@ public class ExpenseServiceTest {
 
     @Autowired
     private ExpenseRepository expenseRepository;
+
+    @Autowired
+    private BudgetRepository budgetRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -76,7 +83,7 @@ public class ExpenseServiceTest {
                 .user(user)
                 .date(LocalDateTime.now())
                 .amount(1000)
-                .category(BudgetCategoryType.FOOD)
+                .category(BudgetCategory.FOOD)
                 .memo("과자 사먹음")
                 .build();
         expense = expenseRepository.save(expense);
@@ -106,7 +113,7 @@ public class ExpenseServiceTest {
                     .user(user)
                     .date(LocalDateTime.now())
                     .amount(1000)
-                    .category(BudgetCategoryType.FOOD)
+                    .category(BudgetCategory.FOOD)
                     .memo("과자 사먹음")
                     .build();
             expenseRepository.save(expense);
@@ -114,7 +121,7 @@ public class ExpenseServiceTest {
                     .user(user)
                     .date(LocalDateTime.now())
                     .amount(10000)
-                    .category(BudgetCategoryType.HEALTHCARE)
+                    .category(BudgetCategory.HEALTHCARE)
                     .memo("병원 갔다옴")
                     .build();
             expenseRepository.save(expense2);
@@ -141,7 +148,7 @@ public class ExpenseServiceTest {
                     .user(user)
                     .date(LocalDateTime.now())
                     .amount(1000)
-                    .category(BudgetCategoryType.FOOD)
+                    .category(BudgetCategory.FOOD)
                     .memo("과자 사먹음")
                     .build();
             expenseRepository.save(expense);
@@ -149,7 +156,7 @@ public class ExpenseServiceTest {
                     .user(user)
                     .date(LocalDateTime.now())
                     .amount(10000)
-                    .category(BudgetCategoryType.HEALTHCARE)
+                    .category(BudgetCategory.HEALTHCARE)
                     .memo("병원 갔다옴")
                     .build();
             expenseRepository.save(expense2);
@@ -177,7 +184,7 @@ public class ExpenseServiceTest {
                     .user(user)
                     .date(LocalDateTime.now())
                     .amount(1000)
-                    .category(BudgetCategoryType.FOOD)
+                    .category(BudgetCategory.FOOD)
                     .memo("과자 사먹음")
                     .build();
             expenseRepository.save(expense);
@@ -185,7 +192,7 @@ public class ExpenseServiceTest {
                     .user(user)
                     .date(LocalDateTime.now())
                     .amount(10000)
-                    .category(BudgetCategoryType.HEALTHCARE)
+                    .category(BudgetCategory.HEALTHCARE)
                     .memo("병원 갔다옴")
                     .build();
             expenseRepository.save(expense2);
@@ -213,7 +220,7 @@ public class ExpenseServiceTest {
                 .user(user)
                 .date(LocalDateTime.now())
                 .amount(1000)
-                .category(BudgetCategoryType.FOOD)
+                .category(BudgetCategory.FOOD)
                 .memo("과자 사먹음")
                 .build();
         expense = expenseRepository.save(expense);
@@ -233,7 +240,7 @@ public class ExpenseServiceTest {
                 .user(user)
                 .date(LocalDateTime.now())
                 .amount(1000)
-                .category(BudgetCategoryType.FOOD)
+                .category(BudgetCategory.FOOD)
                 .memo("과자 사먹음")
                 .build();
         expense = expenseRepository.save(expense);
@@ -255,7 +262,7 @@ public class ExpenseServiceTest {
                 .user(user)
                 .date(LocalDateTime.now())
                 .amount(1000)
-                .category(BudgetCategoryType.FOOD)
+                .category(BudgetCategory.FOOD)
                 .memo("과자 사먹음")
                 .build();
         expense = expenseRepository.save(expense);
@@ -266,5 +273,48 @@ public class ExpenseServiceTest {
         //then
         Expense foundExpense = expenseRepository.getById(expense.getId());
         assertThat(foundExpense.isExcluded()).isTrue();
+    }
+
+    @Test
+    @DisplayName("사용가능한 지출을 추천한다.")
+    void recommendExpense() {
+        //given
+        Budget shoppingCategory = Budget.builder()
+                .user(user)
+                .category(BudgetCategory.SHOPPING)
+                .amount(10000)
+                .ratio(50)
+                .build();
+        Budget financeCategory = Budget.builder()
+                .user(user)
+                .category(BudgetCategory.FINANCE)
+                .amount(10000)
+                .ratio(50)
+                .build();
+        List<Budget> categories = List.of(shoppingCategory, financeCategory);
+        budgetRepository.saveAll(categories);
+
+        Expense expense = Expense.builder()
+                .user(user)
+                .date(LocalDateTime.now())
+                .amount(1000)
+                .category(BudgetCategory.FOOD)
+                .memo("과자 사먹음")
+                .build();
+        expenseRepository.save(expense);
+
+        //when
+        ExpenseRecommendResponse response = expenseService.recommendExpense(user.getId());
+
+        //then
+        int totalCategoryAmount = response.categoryAmounts().stream()
+                .mapToInt(BudgetCategoryAmountResponse::amount)
+                .sum();
+
+        assertAll(() -> {
+            assertThat(response).isNotNull();
+            assertThat(response.categoryAmounts()).hasSize(2);
+            assertThat(response.totalAmount()).isEqualTo(totalCategoryAmount);
+        });
     }
 }

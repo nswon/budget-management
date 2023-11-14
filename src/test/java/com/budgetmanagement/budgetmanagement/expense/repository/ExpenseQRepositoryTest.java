@@ -1,6 +1,6 @@
 package com.budgetmanagement.budgetmanagement.expense.repository;
 
-import com.budgetmanagement.budgetmanagement.budget.domain.BudgetCategoryType;
+import com.budgetmanagement.budgetmanagement.budget.domain.BudgetCategory;
 import com.budgetmanagement.budgetmanagement.expense.domain.Expense;
 import com.budgetmanagement.budgetmanagement.expense.dto.response.ExpenseCategoryTotalAmountResponse;
 import com.budgetmanagement.budgetmanagement.expense.dto.response.ExpenseResponse;
@@ -57,7 +57,7 @@ public class ExpenseQRepositoryTest {
                     .user(user)
                     .date(LocalDateTime.now())
                     .amount(1000)
-                    .category(BudgetCategoryType.FOOD)
+                    .category(BudgetCategory.FOOD)
                     .memo("과자 사먹음")
                     .build();
             expenseRepository.save(expense);
@@ -65,7 +65,7 @@ public class ExpenseQRepositoryTest {
                     .user(user)
                     .date(LocalDateTime.now())
                     .amount(10000)
-                    .category(BudgetCategoryType.HEALTHCARE)
+                    .category(BudgetCategory.HEALTHCARE)
                     .memo("병원 갔다옴")
                     .build();
             expenseRepository.save(expense2);
@@ -85,7 +85,7 @@ public class ExpenseQRepositoryTest {
                     .user(user)
                     .date(LocalDateTime.now())
                     .amount(1000)
-                    .category(BudgetCategoryType.FOOD)
+                    .category(BudgetCategory.FOOD)
                     .memo("과자 사먹음")
                     .build();
             expenseRepository.save(expense);
@@ -93,7 +93,7 @@ public class ExpenseQRepositoryTest {
                     .user(user)
                     .date(LocalDateTime.now())
                     .amount(10000)
-                    .category(BudgetCategoryType.HEALTHCARE)
+                    .category(BudgetCategory.HEALTHCARE)
                     .memo("병원 갔다옴")
                     .build();
             expense2.excludeFromTotalAmount(); //합계에서 제외시키는 메서드
@@ -115,7 +115,7 @@ public class ExpenseQRepositoryTest {
                 .user(user)
                 .date(LocalDateTime.now())
                 .amount(1000)
-                .category(BudgetCategoryType.FOOD)
+                .category(BudgetCategory.FOOD)
                 .memo("과자 사먹음")
                 .build();
         expenseRepository.save(expense);
@@ -123,7 +123,7 @@ public class ExpenseQRepositoryTest {
                 .user(user)
                 .date(LocalDateTime.now())
                 .amount(10000)
-                .category(BudgetCategoryType.HEALTHCARE)
+                .category(BudgetCategory.HEALTHCARE)
                 .memo("병원 갔다옴")
                 .build();
         expenseRepository.save(expense2);
@@ -154,7 +154,7 @@ public class ExpenseQRepositoryTest {
                     .user(user)
                     .date(LocalDateTime.now())
                     .amount(1000)
-                    .category(BudgetCategoryType.FOOD)
+                    .category(BudgetCategory.FOOD)
                     .memo("과자 사먹음")
                     .build();
             expenseRepository.save(expense);
@@ -162,7 +162,7 @@ public class ExpenseQRepositoryTest {
                     .user(user)
                     .date(LocalDateTime.now())
                     .amount(10000)
-                    .category(BudgetCategoryType.HEALTHCARE)
+                    .category(BudgetCategory.HEALTHCARE)
                     .memo("병원 갔다옴")
                     .build();
             expenseRepository.save(expense2);
@@ -182,7 +182,7 @@ public class ExpenseQRepositoryTest {
                     .user(user)
                     .date(LocalDateTime.of(2023, 11, 13, 10, 15))
                     .amount(1000)
-                    .category(BudgetCategoryType.FOOD)
+                    .category(BudgetCategory.FOOD)
                     .memo("과자 사먹음")
                     .build();
             expenseRepository.save(expense);
@@ -190,7 +190,7 @@ public class ExpenseQRepositoryTest {
                     .user(user)
                     .date(LocalDateTime.of(2023, 12, 13, 10, 15))
                     .amount(10000)
-                    .category(BudgetCategoryType.HEALTHCARE)
+                    .category(BudgetCategory.HEALTHCARE)
                     .memo("병원 갔다옴")
                     .build();
             expenseRepository.save(expense2);
@@ -210,7 +210,7 @@ public class ExpenseQRepositoryTest {
                     .user(user)
                     .date(LocalDateTime.now())
                     .amount(1000)
-                    .category(BudgetCategoryType.FOOD)
+                    .category(BudgetCategory.FOOD)
                     .memo("과자 사먹음")
                     .build();
             expenseRepository.save(expense);
@@ -218,7 +218,7 @@ public class ExpenseQRepositoryTest {
                     .user(user)
                     .date(LocalDateTime.now())
                     .amount(5000)
-                    .category(BudgetCategoryType.FOOD)
+                    .category(BudgetCategory.FOOD)
                     .memo("이번엔 밥 먹음")
                     .build();
             expenseRepository.save(expense2);
@@ -226,7 +226,7 @@ public class ExpenseQRepositoryTest {
                     .user(user)
                     .date(LocalDateTime.now())
                     .amount(10000)
-                    .category(BudgetCategoryType.HEALTHCARE)
+                    .category(BudgetCategory.HEALTHCARE)
                     .memo("병원 갔다옴")
                     .build();
             expenseRepository.save(expense3);
@@ -246,7 +246,7 @@ public class ExpenseQRepositoryTest {
                     .user(user)
                     .date(LocalDateTime.now())
                     .amount(1000)
-                    .category(BudgetCategoryType.FOOD)
+                    .category(BudgetCategory.FOOD)
                     .memo("과자 사먹음")
                     .build();
             expenseRepository.save(expense);
@@ -254,7 +254,7 @@ public class ExpenseQRepositoryTest {
                     .user(user)
                     .date(LocalDateTime.now())
                     .amount(5000)
-                    .category(BudgetCategoryType.FOOD)
+                    .category(BudgetCategory.FOOD)
                     .memo("이번엔 밥 먹음")
                     .build();
             expenseRepository.save(expense2);
@@ -276,7 +276,7 @@ public class ExpenseQRepositoryTest {
                     .user(user)
                     .date(LocalDateTime.now())
                     .amount(1000)
-                    .category(BudgetCategoryType.FOOD)
+                    .category(BudgetCategory.FOOD)
                     .memo("과자 사먹음")
                     .build();
             expenseRepository.save(expense);
@@ -284,7 +284,7 @@ public class ExpenseQRepositoryTest {
                     .user(user)
                     .date(LocalDateTime.now())
                     .amount(5000)
-                    .category(BudgetCategoryType.FOOD)
+                    .category(BudgetCategory.FOOD)
                     .memo("이번엔 밥 먹음")
                     .build();
             expenseRepository.save(expense2);

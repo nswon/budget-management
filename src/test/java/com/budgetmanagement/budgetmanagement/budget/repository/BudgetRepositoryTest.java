@@ -1,7 +1,7 @@
 package com.budgetmanagement.budgetmanagement.budget.repository;
 
+import com.budgetmanagement.budgetmanagement.budget.domain.Budget;
 import com.budgetmanagement.budgetmanagement.budget.domain.BudgetCategory;
-import com.budgetmanagement.budgetmanagement.budget.domain.BudgetCategoryType;
 import com.budgetmanagement.budgetmanagement.user.domain.User;
 import com.budgetmanagement.budgetmanagement.user.repository.UserRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -15,10 +15,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 @DataJpaTest
-public class BudgetCategoryRepositoryTest {
+public class BudgetRepositoryTest {
 
     @Autowired
-    private BudgetCategoryRepository budgetCategoryRepository;
+    private BudgetRepository budgetRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -33,30 +33,30 @@ public class BudgetCategoryRepositoryTest {
                 .build();
         userRepository.save(user);
 
-        BudgetCategory shoppingCategory = BudgetCategory.builder()
+        Budget shoppingCategory = Budget.builder()
                 .user(user)
-                .categoryType(BudgetCategoryType.SHOPPING)
+                .category(BudgetCategory.SHOPPING)
                 .amount(10000)
                 .ratio(50)
                 .build();
-        BudgetCategory financeCategory = BudgetCategory.builder()
+        Budget financeCategory = Budget.builder()
                 .user(user)
-                .categoryType(BudgetCategoryType.FINANCE)
+                .category(BudgetCategory.FINANCE)
                 .amount(10000)
                 .ratio(50)
                 .build();
-        List<BudgetCategory> categories = List.of(shoppingCategory, financeCategory);
-        budgetCategoryRepository.saveAll(categories);
+        List<Budget> categories = List.of(shoppingCategory, financeCategory);
+        budgetRepository.saveAll(categories);
 
         //when
-        budgetCategoryRepository.deleteAllByUserInBatch(user.getId());
+        budgetRepository.deleteAllByUserInBatch(user.getId());
 
         //then
         User foundUser = userRepository.getById(user.getId());
 
         assertAll(() -> {
-            assertThat(budgetCategoryRepository.findAll()).isEmpty();
-            assertThat(foundUser.getBudgetCategories()).isEmpty();
+            assertThat(budgetRepository.findAll()).isEmpty();
+            assertThat(foundUser.getBudgets()).isEmpty();
         });
     }
 }

@@ -1,6 +1,6 @@
 package com.budgetmanagement.budgetmanagement.expense.domain;
 
-import com.budgetmanagement.budgetmanagement.budget.domain.BudgetCategoryType;
+import com.budgetmanagement.budgetmanagement.budget.domain.BudgetCategory;
 import com.budgetmanagement.budgetmanagement.user.domain.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -31,7 +31,7 @@ public class Expense {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private BudgetCategoryType category;
+    private BudgetCategory category;
 
     @Column(columnDefinition = "TEXT")
     private String memo;
@@ -40,7 +40,7 @@ public class Expense {
     private boolean isExcluded = false; //합계 제외 여부
 
     @Builder
-    public Expense(User user, LocalDateTime date, int amount, BudgetCategoryType category, String memo) {
+    public Expense(User user, LocalDateTime date, int amount, BudgetCategory category, String memo) {
         this.user = user;
         user.expend(this);
         this.date = date;
@@ -53,7 +53,7 @@ public class Expense {
         isExcluded = true;
     }
 
-    public void update(LocalDateTime date, int amount, BudgetCategoryType category, String memo) {
+    public void update(LocalDateTime date, int amount, BudgetCategory category, String memo) {
         this.date = date;
         this.amount = amount;
         this.category = category;

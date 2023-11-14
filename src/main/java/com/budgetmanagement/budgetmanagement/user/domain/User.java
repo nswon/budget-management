@@ -1,6 +1,6 @@
 package com.budgetmanagement.budgetmanagement.user.domain;
 
-import com.budgetmanagement.budgetmanagement.budget.domain.BudgetCategory;
+import com.budgetmanagement.budgetmanagement.budget.domain.Budget;
 import com.budgetmanagement.budgetmanagement.expense.domain.Expense;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -28,7 +28,7 @@ public class User {
     private String password;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    private final List<BudgetCategory> budgetCategories = new ArrayList<>();
+    private final List<Budget> budgets = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private final List<Expense> expenses = new ArrayList<>();
@@ -39,11 +39,29 @@ public class User {
         this.password = password;
     }
 
-    public void createBudgetCategory(BudgetCategory budgetCategory) {
-        this.budgetCategories.add(budgetCategory);
+    public void createBudgetCategory(Budget budget) {
+        this.budgets.add(budget);
     }
 
     public void expend(Expense expense) {
         this.expenses.add(expense);
+    }
+
+    public int getRemainingBudget() {
+        int totalBudgetAmount = getTotalBudgetAmount();
+        int totalExpenseAmount = getTotalExpenseAmount();
+        return totalBudgetAmount - totalExpenseAmount;
+    }
+
+    private int getTotalBudgetAmount() {
+        return this.budgets.stream()
+                .mapToInt(Budget::getAmount)
+                .sum();
+    }
+
+    private int getTotalExpenseAmount() {
+        return this.expenses.stream()
+                .mapToInt(Expense::getAmount)
+                .sum();
     }
 }

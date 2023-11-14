@@ -1,6 +1,6 @@
 package com.budgetmanagement.budgetmanagement.expense.repository.impl;
 
-import com.budgetmanagement.budgetmanagement.budget.domain.BudgetCategoryType;
+import com.budgetmanagement.budgetmanagement.budget.domain.BudgetCategory;
 import com.budgetmanagement.budgetmanagement.expense.dto.response.ExpenseCategoryTotalAmountResponse;
 import com.budgetmanagement.budgetmanagement.expense.dto.response.ExpenseResponse;
 import com.budgetmanagement.budgetmanagement.expense.repository.ExpenseQRepository;
@@ -76,7 +76,7 @@ public class ExpenseQRepositoryImpl implements ExpenseQRepository {
             return null;
         }
 
-        BudgetCategoryType categoryType = BudgetCategoryType.toEnum(category);
+        BudgetCategory categoryType = BudgetCategory.toEnum(category);
         return expense.category.eq(categoryType);
     }
 
