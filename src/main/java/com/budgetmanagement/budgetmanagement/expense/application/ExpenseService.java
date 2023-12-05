@@ -11,7 +11,7 @@ import com.budgetmanagement.budgetmanagement.expense.dto.response.*;
 import com.budgetmanagement.budgetmanagement.expense.repository.ExpenseQRepository;
 import com.budgetmanagement.budgetmanagement.expense.repository.ExpenseRepository;
 import com.budgetmanagement.budgetmanagement.user.domain.User;
-import com.budgetmanagement.budgetmanagement.user.repository.UserRepository;
+import com.budgetmanagement.budgetmanagement.user.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

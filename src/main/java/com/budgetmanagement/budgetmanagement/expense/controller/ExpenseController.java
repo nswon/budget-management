@@ -1,7 +1,7 @@
 package com.budgetmanagement.budgetmanagement.expense.controller;
 
-import com.budgetmanagement.budgetmanagement.auth.controller.AuthenticationPrincipal;
-import com.budgetmanagement.budgetmanagement.auth.dto.LoginUser;
+import com.budgetmanagement.budgetmanagement.auth.api.AuthenticationPrincipal;
+import com.budgetmanagement.budgetmanagement.auth.domain.LoginUser;
 import com.budgetmanagement.budgetmanagement.expense.application.ExpenseService;
 import com.budgetmanagement.budgetmanagement.expense.dto.request.ExpenseCreateRequest;
 import com.budgetmanagement.budgetmanagement.expense.dto.request.ExpenseUpdateRequest;

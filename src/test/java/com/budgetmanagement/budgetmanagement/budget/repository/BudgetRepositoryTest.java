@@ -3,7 +3,7 @@ package com.budgetmanagement.budgetmanagement.budget.repository;
 import com.budgetmanagement.budgetmanagement.budget.domain.Budget;
 import com.budgetmanagement.budgetmanagement.budget.domain.BudgetCategory;
 import com.budgetmanagement.budgetmanagement.user.domain.User;
-import com.budgetmanagement.budgetmanagement.user.repository.UserRepository;
+import com.budgetmanagement.budgetmanagement.user.domain.UserRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

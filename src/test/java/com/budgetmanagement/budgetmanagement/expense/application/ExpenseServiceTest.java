@@ -13,7 +13,7 @@ import com.budgetmanagement.budgetmanagement.expense.dto.response.ExpensesRespon
 import com.budgetmanagement.budgetmanagement.expense.exception.ExpenseNotFoundException;
 import com.budgetmanagement.budgetmanagement.expense.repository.ExpenseRepository;
 import com.budgetmanagement.budgetmanagement.user.domain.User;
-import com.budgetmanagement.budgetmanagement.user.repository.UserRepository;
+import com.budgetmanagement.budgetmanagement.user.domain.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

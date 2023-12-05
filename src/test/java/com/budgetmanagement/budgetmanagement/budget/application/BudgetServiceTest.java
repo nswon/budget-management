@@ -8,7 +8,7 @@ import com.budgetmanagement.budgetmanagement.budget.dto.response.BudgetCategoryR
 import com.budgetmanagement.budgetmanagement.budget.dto.response.BudgetRecommendResponse;
 import com.budgetmanagement.budgetmanagement.budget.repository.BudgetRepository;
 import com.budgetmanagement.budgetmanagement.user.domain.User;
-import com.budgetmanagement.budgetmanagement.user.repository.UserRepository;
+import com.budgetmanagement.budgetmanagement.user.domain.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

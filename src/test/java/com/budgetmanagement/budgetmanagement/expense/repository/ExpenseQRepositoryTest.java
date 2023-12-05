@@ -5,7 +5,7 @@ import com.budgetmanagement.budgetmanagement.expense.domain.Expense;
 import com.budgetmanagement.budgetmanagement.expense.dto.response.ExpenseCategoryTotalAmountResponse;
 import com.budgetmanagement.budgetmanagement.expense.dto.response.ExpenseResponse;
 import com.budgetmanagement.budgetmanagement.user.domain.User;
-import com.budgetmanagement.budgetmanagement.user.repository.UserRepository;
+import com.budgetmanagement.budgetmanagement.user.domain.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

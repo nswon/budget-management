@@ -1,9 +1,10 @@
 package com.budgetmanagement.budgetmanagement.user.application;
 
 import com.budgetmanagement.budgetmanagement.user.domain.User;
-import com.budgetmanagement.budgetmanagement.user.dto.request.UserJoinRequest;
+import com.budgetmanagement.budgetmanagement.user.api.UserJoinRequest;
+import com.budgetmanagement.budgetmanagement.user.domain.UserService;
 import com.budgetmanagement.budgetmanagement.user.exception.DuplicateAccountException;
-import com.budgetmanagement.budgetmanagement.user.repository.UserRepository;
+import com.budgetmanagement.budgetmanagement.user.domain.UserRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -30,10 +31,10 @@ public class UserServiceTest {
         @DisplayName("성공")
         void success() {
             //given
-            UserJoinRequest userJoinRequest = new UserJoinRequest("account", "password123@");
+            UserJoinRequest request = new UserJoinRequest("account", "password123@");
 
             //when
-            userService.join(userJoinRequest);
+            userService.join(request.toUserRequest());
 
             //then
             assertThat(userRepository.existsByAccount("account")).isTrue();
@@ -51,8 +52,8 @@ public class UserServiceTest {
             userRepository.save(user);
 
             //when, then
-            UserJoinRequest userJoinRequest = new UserJoinRequest(account, "password123@");
-            assertThatThrownBy(() -> userService.join(userJoinRequest))
+            UserJoinRequest request = new UserJoinRequest(account, "password123@");
+            assertThatThrownBy(() -> userService.join(request.toUserRequest()))
                     .isInstanceOf(DuplicateAccountException.class);
         }
     }

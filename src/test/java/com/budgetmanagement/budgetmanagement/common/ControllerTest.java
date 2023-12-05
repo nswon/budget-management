@@ -1,13 +1,13 @@
 package com.budgetmanagement.budgetmanagement.common;
 
-import com.budgetmanagement.budgetmanagement.auth.application.AuthService;
-import com.budgetmanagement.budgetmanagement.auth.controller.AuthController;
+import com.budgetmanagement.budgetmanagement.auth.domain.AuthService;
+import com.budgetmanagement.budgetmanagement.auth.api.AuthController;
 import com.budgetmanagement.budgetmanagement.budget.application.BudgetService;
 import com.budgetmanagement.budgetmanagement.budget.controller.BudgetController;
 import com.budgetmanagement.budgetmanagement.expense.application.ExpenseService;
 import com.budgetmanagement.budgetmanagement.expense.controller.ExpenseController;
-import com.budgetmanagement.budgetmanagement.user.application.UserService;
-import com.budgetmanagement.budgetmanagement.user.controller.UserController;
+import com.budgetmanagement.budgetmanagement.user.domain.UserService;
+import com.budgetmanagement.budgetmanagement.user.api.UserController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;

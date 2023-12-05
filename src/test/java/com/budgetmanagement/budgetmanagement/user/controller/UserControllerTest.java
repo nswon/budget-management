@@ -1,7 +1,7 @@
 package com.budgetmanagement.budgetmanagement.user.controller;
 
 import com.budgetmanagement.budgetmanagement.common.ControllerTest;
-import com.budgetmanagement.budgetmanagement.user.dto.request.UserJoinRequest;
+import com.budgetmanagement.budgetmanagement.user.api.UserJoinRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
