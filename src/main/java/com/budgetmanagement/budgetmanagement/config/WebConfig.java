@@ -1,6 +1,6 @@
 package com.budgetmanagement.budgetmanagement.config;
 
-import com.budgetmanagement.budgetmanagement.auth.api.AuthenticationPrincipalArgumentResolver;
+import com.budgetmanagement.budgetmanagement.controller.auth.AuthenticationPrincipalArgumentResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;

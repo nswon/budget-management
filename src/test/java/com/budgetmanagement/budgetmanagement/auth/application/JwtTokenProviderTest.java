@@ -1,6 +1,6 @@
 package com.budgetmanagement.budgetmanagement.auth.application;
 
-import com.budgetmanagement.budgetmanagement.auth.domain.JwtTokenProvider;
+import com.budgetmanagement.budgetmanagement.domain.auth.JwtTokenProvider;
 import com.budgetmanagement.budgetmanagement.auth.exception.ExpiredTokenException;
 import com.budgetmanagement.budgetmanagement.auth.exception.InvalidTokenException;
 import org.junit.jupiter.api.DisplayName;

@@ -1,9 +1,9 @@
 package com.budgetmanagement.budgetmanagement.auth.application;
 
-import com.budgetmanagement.budgetmanagement.auth.domain.AuthTokenCreator;
-import com.budgetmanagement.budgetmanagement.auth.domain.AuthToken;
+import com.budgetmanagement.budgetmanagement.domain.auth.AuthTokenCreator;
+import com.budgetmanagement.budgetmanagement.domain.auth.AuthToken;
 import com.budgetmanagement.budgetmanagement.auth.exception.InvalidTokenException;
-import com.budgetmanagement.budgetmanagement.auth.domain.AuthTokenRepository;
+import com.budgetmanagement.budgetmanagement.domain.auth.AuthTokenRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

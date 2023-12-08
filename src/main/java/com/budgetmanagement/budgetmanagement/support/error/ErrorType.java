@@ -10,7 +10,8 @@ public enum ErrorType {
     DUPLICATE_ACCOUNT(HttpStatus.BAD_REQUEST, "이미 존재하는 계정입니다."),
     INVALID_PASSWORD(HttpStatus.BAD_REQUEST, "잘못된 비밀번호입니다."),
     EXPIRED_TOKEN(HttpStatus.UNAUTHORIZED, "만료된 토큰입니다."),
-    INVALID_TOKEN(HttpStatus.UNAUTHORIZED, "잘못된 토큰입니다.")
+    INVALID_TOKEN(HttpStatus.UNAUTHORIZED, "잘못된 토큰입니다."),
+    EMPTY_HEADER(HttpStatus.BAD_REQUEST, "인증 헤더의 값이 비어있습니다."),
     ;
 
     private final HttpStatus status;

@@ -1,19 +1,20 @@
 package com.budgetmanagement.budgetmanagement.expense.application;
 
-import com.budgetmanagement.budgetmanagement.budget.domain.Budget;
-import com.budgetmanagement.budgetmanagement.budget.domain.BudgetCategory;
-import com.budgetmanagement.budgetmanagement.budget.dto.response.BudgetCategoryAmountResponse;
-import com.budgetmanagement.budgetmanagement.budget.repository.BudgetRepository;
-import com.budgetmanagement.budgetmanagement.expense.domain.Expense;
-import com.budgetmanagement.budgetmanagement.expense.dto.request.ExpenseCreateRequest;
-import com.budgetmanagement.budgetmanagement.expense.dto.request.ExpenseUpdateRequest;
-import com.budgetmanagement.budgetmanagement.expense.dto.response.ExpenseDetailResponse;
-import com.budgetmanagement.budgetmanagement.expense.dto.response.ExpenseRecommendResponse;
-import com.budgetmanagement.budgetmanagement.expense.dto.response.ExpensesResponse;
+import com.budgetmanagement.budgetmanagement.domain.budget.Budget;
+import com.budgetmanagement.budgetmanagement.domain.budget.category.BudgetCategoryType;
+import com.budgetmanagement.budgetmanagement.controller.budget.BudgetCategoryAmountResponse;
+import com.budgetmanagement.budgetmanagement.domain.budget.BudgetRepository;
+import com.budgetmanagement.budgetmanagement.domain.expense.ExpenseService;
+import com.budgetmanagement.budgetmanagement.domain.expense.Expense;
+import com.budgetmanagement.budgetmanagement.controller.expense.request.ExpenseCreateRequest;
+import com.budgetmanagement.budgetmanagement.controller.expense.request.ExpenseUpdateRequest;
+import com.budgetmanagement.budgetmanagement.controller.expense.response.ExpenseDetailResponse;
+import com.budgetmanagement.budgetmanagement.controller.expense.ExpenseRecommendResponse;
+import com.budgetmanagement.budgetmanagement.controller.expense.response.ExpensesResponse;
 import com.budgetmanagement.budgetmanagement.expense.exception.ExpenseNotFoundException;
-import com.budgetmanagement.budgetmanagement.expense.repository.ExpenseRepository;
-import com.budgetmanagement.budgetmanagement.user.domain.User;
-import com.budgetmanagement.budgetmanagement.user.domain.UserRepository;
+import com.budgetmanagement.budgetmanagement.domain.expense.ExpenseRepository;
+import com.budgetmanagement.budgetmanagement.domain.user.User;
+import com.budgetmanagement.budgetmanagement.domain.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -83,7 +84,7 @@ public class ExpenseServiceTest {
                 .user(user)
                 .date(LocalDateTime.now())
                 .amount(1000)
-                .category(BudgetCategory.FOOD)
+                .category(BudgetCategoryType.FOOD)
                 .memo("과자 사먹음")
                 .build();
         expense = expenseRepository.save(expense);
@@ -103,7 +104,7 @@ public class ExpenseServiceTest {
 
     @Nested
     @DisplayName("지출 목록을 가져온다.")
-    class getExpenses {
+    class getExpenseResult {
 
         @Test
         @DisplayName("성공")
@@ -113,7 +114,7 @@ public class ExpenseServiceTest {
                     .user(user)
                     .date(LocalDateTime.now())
                     .amount(1000)
-                    .category(BudgetCategory.FOOD)
+                    .category(BudgetCategoryType.FOOD)
                     .memo("과자 사먹음")
                     .build();
             expenseRepository.save(expense);
@@ -121,7 +122,7 @@ public class ExpenseServiceTest {
                     .user(user)
                     .date(LocalDateTime.now())
                     .amount(10000)
-                    .category(BudgetCategory.HEALTHCARE)
+                    .category(BudgetCategoryType.HEALTHCARE)
                     .memo("병원 갔다옴")
                     .build();
             expenseRepository.save(expense2);
@@ -148,7 +149,7 @@ public class ExpenseServiceTest {
                     .user(user)
                     .date(LocalDateTime.now())
                     .amount(1000)
-                    .category(BudgetCategory.FOOD)
+                    .category(BudgetCategoryType.FOOD)
                     .memo("과자 사먹음")
                     .build();
             expenseRepository.save(expense);
@@ -156,7 +157,7 @@ public class ExpenseServiceTest {
                     .user(user)
                     .date(LocalDateTime.now())
                     .amount(10000)
-                    .category(BudgetCategory.HEALTHCARE)
+                    .category(BudgetCategoryType.HEALTHCARE)
                     .memo("병원 갔다옴")
                     .build();
             expenseRepository.save(expense2);
@@ -184,7 +185,7 @@ public class ExpenseServiceTest {
                     .user(user)
                     .date(LocalDateTime.now())
                     .amount(1000)
-                    .category(BudgetCategory.FOOD)
+                    .category(BudgetCategoryType.FOOD)
                     .memo("과자 사먹음")
                     .build();
             expenseRepository.save(expense);
@@ -192,7 +193,7 @@ public class ExpenseServiceTest {
                     .user(user)
                     .date(LocalDateTime.now())
                     .amount(10000)
-                    .category(BudgetCategory.HEALTHCARE)
+                    .category(BudgetCategoryType.HEALTHCARE)
                     .memo("병원 갔다옴")
                     .build();
             expenseRepository.save(expense2);
@@ -220,7 +221,7 @@ public class ExpenseServiceTest {
                 .user(user)
                 .date(LocalDateTime.now())
                 .amount(1000)
-                .category(BudgetCategory.FOOD)
+                .category(BudgetCategoryType.FOOD)
                 .memo("과자 사먹음")
                 .build();
         expense = expenseRepository.save(expense);
@@ -240,7 +241,7 @@ public class ExpenseServiceTest {
                 .user(user)
                 .date(LocalDateTime.now())
                 .amount(1000)
-                .category(BudgetCategory.FOOD)
+                .category(BudgetCategoryType.FOOD)
                 .memo("과자 사먹음")
                 .build();
         expense = expenseRepository.save(expense);
@@ -262,7 +263,7 @@ public class ExpenseServiceTest {
                 .user(user)
                 .date(LocalDateTime.now())
                 .amount(1000)
-                .category(BudgetCategory.FOOD)
+                .category(BudgetCategoryType.FOOD)
                 .memo("과자 사먹음")
                 .build();
         expense = expenseRepository.save(expense);
@@ -281,13 +282,13 @@ public class ExpenseServiceTest {
         //given
         Budget shoppingCategory = Budget.builder()
                 .user(user)
-                .category(BudgetCategory.SHOPPING)
+                .category(BudgetCategoryType.SHOPPING)
                 .amount(10000)
                 .ratio(50)
                 .build();
         Budget financeCategory = Budget.builder()
                 .user(user)
-                .category(BudgetCategory.FINANCE)
+                .category(BudgetCategoryType.FINANCE)
                 .amount(10000)
                 .ratio(50)
                 .build();
@@ -298,7 +299,7 @@ public class ExpenseServiceTest {
                 .user(user)
                 .date(LocalDateTime.now())
                 .amount(1000)
-                .category(BudgetCategory.FOOD)
+                .category(BudgetCategoryType.FOOD)
                 .memo("과자 사먹음")
                 .build();
         expenseRepository.save(expense);

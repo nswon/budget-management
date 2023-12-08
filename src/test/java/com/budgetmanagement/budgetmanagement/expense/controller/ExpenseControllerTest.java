@@ -1,12 +1,16 @@
 package com.budgetmanagement.budgetmanagement.expense.controller;
 
-import com.budgetmanagement.budgetmanagement.budget.domain.BudgetCategory;
-import com.budgetmanagement.budgetmanagement.budget.dto.response.BudgetCategoryAmountResponse;
+import com.budgetmanagement.budgetmanagement.controller.expense.*;
+import com.budgetmanagement.budgetmanagement.controller.expense.request.ExpenseCreateRequest;
+import com.budgetmanagement.budgetmanagement.controller.expense.request.ExpenseUpdateRequest;
+import com.budgetmanagement.budgetmanagement.controller.expense.response.ExpenseCategoryTotalResponse;
+import com.budgetmanagement.budgetmanagement.controller.expense.response.ExpenseDetailResponse;
+import com.budgetmanagement.budgetmanagement.controller.expense.response.ExpenseResponse;
+import com.budgetmanagement.budgetmanagement.controller.expense.response.ExpensesResponse;
+import com.budgetmanagement.budgetmanagement.domain.budget.category.BudgetCategoryType;
+import com.budgetmanagement.budgetmanagement.controller.budget.BudgetCategoryAmountResponse;
 import com.budgetmanagement.budgetmanagement.common.ControllerTest;
-import com.budgetmanagement.budgetmanagement.expense.domain.ExpenseMessage;
-import com.budgetmanagement.budgetmanagement.expense.dto.request.ExpenseCreateRequest;
-import com.budgetmanagement.budgetmanagement.expense.dto.request.ExpenseUpdateRequest;
-import com.budgetmanagement.budgetmanagement.expense.dto.response.*;
+import com.budgetmanagement.budgetmanagement.domain.expense.ExpenseMessage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -59,8 +63,8 @@ public class ExpenseControllerTest extends ControllerTest {
     @Test
     @DisplayName("지출 목록을 조회한다.")
     void getExpenses() throws Exception {
-        List<ExpenseCategoryTotalAmountResponse> categoryTotalAmounts = List.of(new ExpenseCategoryTotalAmountResponse(100));
-        List<ExpenseResponse> expenses = List.of(new ExpenseResponse(LocalDateTime.now(), 100, BudgetCategory.FOOD));
+        List<ExpenseCategoryTotalResponse> categoryTotalAmounts = List.of(new ExpenseCategoryTotalResponse(100));
+        List<ExpenseResponse> expenses = List.of(new ExpenseResponse(LocalDateTime.now(), 100, BudgetCategoryType.FOOD));
         ExpensesResponse response = new ExpensesResponse(100, categoryTotalAmounts, expenses);
 
         given(expenseService.getExpenses(any(), any(), anyInt(), anyInt()))

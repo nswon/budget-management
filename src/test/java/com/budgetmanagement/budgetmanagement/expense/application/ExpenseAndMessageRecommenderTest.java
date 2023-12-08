@@ -1,7 +1,8 @@
 package com.budgetmanagement.budgetmanagement.expense.application;
 
-import com.budgetmanagement.budgetmanagement.expense.domain.ExpenseMessage;
-import com.budgetmanagement.budgetmanagement.expense.dto.ExpenseAndMessage;
+import com.budgetmanagement.budgetmanagement.domain.expense.ExpenseAndMessageRecommender;
+import com.budgetmanagement.budgetmanagement.domain.expense.ExpenseMessage;
+import com.budgetmanagement.budgetmanagement.domain.expense.ExpenseAndMessage;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

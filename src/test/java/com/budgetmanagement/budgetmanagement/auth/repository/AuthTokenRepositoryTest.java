@@ -1,7 +1,7 @@
 package com.budgetmanagement.budgetmanagement.auth.repository;
 
-import com.budgetmanagement.budgetmanagement.auth.domain.AuthTokenRepository;
-import com.budgetmanagement.budgetmanagement.auth.domain.AuthTokenRepositoryImpl;
+import com.budgetmanagement.budgetmanagement.domain.auth.AuthTokenRepository;
+import com.budgetmanagement.budgetmanagement.domain.auth.AuthTokenRepositoryImpl;
 import net.jodah.expiringmap.ExpirationPolicy;
 import net.jodah.expiringmap.ExpiringMap;
 import org.junit.jupiter.api.DisplayName;

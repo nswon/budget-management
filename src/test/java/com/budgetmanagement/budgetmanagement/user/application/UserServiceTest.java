@@ -1,10 +1,10 @@
 package com.budgetmanagement.budgetmanagement.user.application;
 
-import com.budgetmanagement.budgetmanagement.user.domain.User;
-import com.budgetmanagement.budgetmanagement.user.api.UserJoinRequest;
-import com.budgetmanagement.budgetmanagement.user.domain.UserService;
+import com.budgetmanagement.budgetmanagement.domain.user.User;
+import com.budgetmanagement.budgetmanagement.controller.user.request.UserJoinRequest;
+import com.budgetmanagement.budgetmanagement.domain.user.UserService;
 import com.budgetmanagement.budgetmanagement.user.exception.DuplicateAccountException;
-import com.budgetmanagement.budgetmanagement.user.domain.UserRepository;
+import com.budgetmanagement.budgetmanagement.domain.user.UserRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

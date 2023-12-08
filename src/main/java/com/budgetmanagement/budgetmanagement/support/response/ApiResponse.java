@@ -5,7 +5,7 @@ import com.budgetmanagement.budgetmanagement.support.error.ErrorType;
 
 public record ApiResponse<S>(ResultType resultType, S data, ErrorMessage error) {
 
-    public static ApiResponse<?> success() {
+    public static ApiResponse<Void> success() {
         return new ApiResponse<>(ResultType.SUCCESS, null, null);
     }
 

@@ -1,15 +1,15 @@
 package com.budgetmanagement.budgetmanagement.auth.application;
 
-import com.budgetmanagement.budgetmanagement.auth.domain.AuthService;
-import com.budgetmanagement.budgetmanagement.auth.api.AuthLoginRequest;
-import com.budgetmanagement.budgetmanagement.auth.api.AuthRenewalTokenRequest;
-import com.budgetmanagement.budgetmanagement.auth.api.AuthRenewalTokenResponse;
-import com.budgetmanagement.budgetmanagement.auth.api.AuthTokenResponse;
+import com.budgetmanagement.budgetmanagement.domain.auth.AuthService;
+import com.budgetmanagement.budgetmanagement.controller.auth.request.AuthLoginRequest;
+import com.budgetmanagement.budgetmanagement.controller.auth.request.AuthRenewalTokenRequest;
+import com.budgetmanagement.budgetmanagement.controller.auth.response.AuthRenewalTokenResponse;
+import com.budgetmanagement.budgetmanagement.controller.auth.response.AuthTokenResponse;
 import com.budgetmanagement.budgetmanagement.auth.exception.InvalidPasswordException;
 import com.budgetmanagement.budgetmanagement.auth.exception.InvalidTokenException;
-import com.budgetmanagement.budgetmanagement.user.domain.User;
+import com.budgetmanagement.budgetmanagement.domain.user.User;
 import com.budgetmanagement.budgetmanagement.user.exception.UserNotFoundException;
-import com.budgetmanagement.budgetmanagement.user.domain.UserRepository;
+import com.budgetmanagement.budgetmanagement.domain.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

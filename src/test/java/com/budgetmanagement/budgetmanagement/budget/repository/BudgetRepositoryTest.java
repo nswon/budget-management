@@ -1,9 +1,10 @@
 package com.budgetmanagement.budgetmanagement.budget.repository;
 
-import com.budgetmanagement.budgetmanagement.budget.domain.Budget;
-import com.budgetmanagement.budgetmanagement.budget.domain.BudgetCategory;
-import com.budgetmanagement.budgetmanagement.user.domain.User;
-import com.budgetmanagement.budgetmanagement.user.domain.UserRepository;
+import com.budgetmanagement.budgetmanagement.domain.budget.Budget;
+import com.budgetmanagement.budgetmanagement.domain.budget.category.BudgetCategoryType;
+import com.budgetmanagement.budgetmanagement.domain.budget.BudgetRepository;
+import com.budgetmanagement.budgetmanagement.domain.user.User;
+import com.budgetmanagement.budgetmanagement.domain.user.UserRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,13 +36,13 @@ public class BudgetRepositoryTest {
 
         Budget shoppingCategory = Budget.builder()
                 .user(user)
-                .category(BudgetCategory.SHOPPING)
+                .category(BudgetCategoryType.SHOPPING)
                 .amount(10000)
                 .ratio(50)
                 .build();
         Budget financeCategory = Budget.builder()
                 .user(user)
-                .category(BudgetCategory.FINANCE)
+                .category(BudgetCategoryType.FINANCE)
                 .amount(10000)
                 .ratio(50)
                 .build();

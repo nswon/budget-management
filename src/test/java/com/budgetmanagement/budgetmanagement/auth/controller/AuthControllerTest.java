@@ -1,9 +1,9 @@
 package com.budgetmanagement.budgetmanagement.auth.controller;
 
-import com.budgetmanagement.budgetmanagement.auth.api.AuthLoginRequest;
-import com.budgetmanagement.budgetmanagement.auth.api.AuthRenewalTokenRequest;
-import com.budgetmanagement.budgetmanagement.auth.api.AuthRenewalTokenResponse;
-import com.budgetmanagement.budgetmanagement.auth.api.AuthTokenResponse;
+import com.budgetmanagement.budgetmanagement.controller.auth.request.AuthLoginRequest;
+import com.budgetmanagement.budgetmanagement.controller.auth.request.AuthRenewalTokenRequest;
+import com.budgetmanagement.budgetmanagement.controller.auth.response.AuthRenewalTokenResponse;
+import com.budgetmanagement.budgetmanagement.controller.auth.response.AuthTokenResponse;
 import com.budgetmanagement.budgetmanagement.auth.exception.InvalidPasswordException;
 import com.budgetmanagement.budgetmanagement.common.ControllerTest;
 import com.budgetmanagement.budgetmanagement.user.exception.UserNotFoundException;
