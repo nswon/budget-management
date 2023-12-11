@@ -19,8 +19,10 @@ public class BudgetManager {
 
     @Transactional
     public Budget init(User user, BudgetAmount amount) {
-        Budget budget = budgetRepository.findByUser(user)
-                .orElseGet(() -> budgetRepository.save(newBudget(user, amount)));
+        YearMonth month = YearMonth.now();
+
+        Budget budget = budgetRepository.findByUserAndMonth(user, month)
+                .orElseGet(() -> budgetRepository.save(newBudget(user, amount, month)));
 
         if(isConfiged(budget)) {
             categoryRepository.deleteAllBy(budget.getId());
@@ -29,12 +31,12 @@ public class BudgetManager {
         return budget;
     }
 
+    private Budget newBudget(User user, BudgetAmount amount, YearMonth month) {
+        return new Budget(user, amount.amount(), month);
+    }
+
     private boolean isConfiged(Budget budget) {
         return !budget.getCategories().isEmpty();
     }
 
-    private Budget newBudget(User user, BudgetAmount amount) {
-        YearMonth month = YearMonth.now();
-        return new Budget(user, amount.amount(), month);
-    }
 }

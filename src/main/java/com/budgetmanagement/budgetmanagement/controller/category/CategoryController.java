@@ -5,14 +5,12 @@ import com.budgetmanagement.budgetmanagement.controller.auth.LoginUser;
 import com.budgetmanagement.budgetmanagement.controller.category.request.BudgetAmountRequest;
 import com.budgetmanagement.budgetmanagement.controller.category.response.CategoriesResponse;
 import com.budgetmanagement.budgetmanagement.controller.category.response.RecommendCategoriesResponse;
+import com.budgetmanagement.budgetmanagement.domain.budget.BudgetAmount;
 import com.budgetmanagement.budgetmanagement.domain.category.CategoryBudget;
 import com.budgetmanagement.budgetmanagement.domain.category.CategoryContent;
 import com.budgetmanagement.budgetmanagement.domain.category.CategoryService;
 import com.budgetmanagement.budgetmanagement.support.response.ApiResponse;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,9 +32,9 @@ public class CategoryController {
     @GetMapping("/recommend")
     public ApiResponse<RecommendCategoriesResponse> recommendCategories(
             @AuthenticationPrincipal LoginUser user,
-            @RequestBody BudgetAmountRequest request
+            @RequestParam int amount
     ) {
-        List<CategoryBudget> categories = categoryService.recommend(request.toAmount());
+        List<CategoryBudget> categories = categoryService.recommend(new BudgetAmount(amount));
         return ApiResponse.success(RecommendCategoriesResponse.of(categories));
     }
 }

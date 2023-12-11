@@ -6,6 +6,7 @@ import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Component;
 
+import java.time.YearMonth;
 import java.util.List;
 
 import static com.budgetmanagement.budgetmanagement.domain.category.QCategory.category;
