@@ -6,9 +6,9 @@ import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Component;
 
-import java.time.YearMonth;
 import java.util.List;
 
+import static com.budgetmanagement.budgetmanagement.domain.budget.QBudget.budget;
 import static com.budgetmanagement.budgetmanagement.domain.category.QCategory.category;
 
 @Component
@@ -28,18 +28,17 @@ public class CategoryQueryRepositoryImpl implements CategoryQueryRepository {
                         getAverageAmount(amount)
                 ))
                 .from(category)
+                .join(category.budget, budget)
                 .groupBy(category.name)
                 .fetch();
     }
 
-    //비율을 금액으로 변환하여 반환
     private NumberExpression<Integer> getAverageAmount(BudgetAmount amount) {
         NumberExpression<Double> ratio = calculateAverageRatio();
         return ratio.divide(100).multiply(amount.amount()).intValue();
     }
 
-    //카테고리별 예산 평균 비율을 계산
     private NumberExpression<Double> calculateAverageRatio() {
-        return category.amount.sum().doubleValue().divide(category.count());
+        return category.amount.sum().doubleValue().divide(budget.amount.sum()).multiply(100);
     }
 }
