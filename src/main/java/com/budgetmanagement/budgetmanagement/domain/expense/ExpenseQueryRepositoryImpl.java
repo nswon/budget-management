@@ -16,7 +16,7 @@ public class ExpenseQueryRepositoryImpl implements ExpenseQueryRepository {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public int getTotalAmount(Long userId, String category, ExpenseRange range) {
+    public int getTotalAmount(long userId, String category, ExpenseRange range) {
         return queryFactory
                 .select(expense.amount.sum())
                 .from(expense)
@@ -29,10 +29,11 @@ public class ExpenseQueryRepositoryImpl implements ExpenseQueryRepository {
                 .fetchFirst();
     }
 
+    //카테고리별 지출 합계를 반환
     @Override
-    public List<CategoryTotal> getCategoryTotalList(Long userId, String category, ExpenseRange range) {
+    public List<CategoryExpense> getCategoryTotalList(long userId, String category, ExpenseRange range) {
         return queryFactory
-                .select(Projections.constructor(CategoryTotal.class,
+                .select(Projections.constructor(CategoryExpense.class,
                         expense.amount.sum()
                 ))
                 .from(expense)
@@ -41,19 +42,17 @@ public class ExpenseQueryRepositoryImpl implements ExpenseQueryRepository {
                         filteringCategory(category),
                         filteringRange(range)
                 )
-                .groupBy(expense)
+                .groupBy(expense.category)
                 .fetch();
     }
 
     @Override
-    public List<ExpenseContent> getExpenses(Long userId, String category, ExpenseRange range) {
+    public List<ExpenseSummary> getExpenses(long userId, String category, ExpenseRange range) {
         return queryFactory
-                .select(Projections.constructor(ExpenseContent.class,
+                .select(Projections.constructor(ExpenseSummary.class,
                         expense.date,
                         expense.amount,
-                        expense.category,
-                        null,
-                        null
+                        expense.category.name
                 ))
                 .from(expense)
                 .where(
@@ -74,7 +73,7 @@ public class ExpenseQueryRepositoryImpl implements ExpenseQueryRepository {
             return null;
         }
 
-        return expense.category.eq(category);
+        return expense.category.name.eq(category);
     }
 
     private BooleanExpression filteringRange(ExpenseRange range) {

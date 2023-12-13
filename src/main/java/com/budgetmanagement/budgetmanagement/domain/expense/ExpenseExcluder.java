@@ -4,15 +4,15 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
-public class ExpenseTotalExcluder {
+public class ExpenseExcluder {
     private final ExpenseReader expenseReader;
 
-    public ExpenseTotalExcluder(ExpenseReader expenseReader) {
+    public ExpenseExcluder(ExpenseReader expenseReader) {
         this.expenseReader = expenseReader;
     }
 
     @Transactional
-    public void exclude(Long expenseId) {
+    public void exclude(long expenseId) {
         Expense expense = expenseReader.readBy(expenseId);
         expense.exclude();
     }

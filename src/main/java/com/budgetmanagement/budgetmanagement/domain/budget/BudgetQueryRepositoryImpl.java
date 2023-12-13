@@ -1,6 +1,5 @@
-package com.budgetmanagement.budgetmanagement.domain.category;
+package com.budgetmanagement.budgetmanagement.domain.budget;
 
-import com.budgetmanagement.budgetmanagement.domain.budget.BudgetAmount;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -10,26 +9,28 @@ import java.util.List;
 
 import static com.budgetmanagement.budgetmanagement.domain.budget.QBudget.budget;
 import static com.budgetmanagement.budgetmanagement.domain.category.QCategory.category;
+import static com.budgetmanagement.budgetmanagement.domain.user.QUser.user;
 
 @Component
-public class CategoryQueryRepositoryImpl implements CategoryQueryRepository {
+public class BudgetQueryRepositoryImpl implements BudgetQueryRepository {
     private final JPAQueryFactory factory;
 
-    public CategoryQueryRepositoryImpl(JPAQueryFactory factory) {
+    public BudgetQueryRepositoryImpl(JPAQueryFactory factory) {
         this.factory = factory;
     }
 
     //예산 금액으로 기존 유저들이 설정한 카테고리 별 예산을 통계하여 금액으로 변경하여 반환
     @Override
-    public List<CategoryBudget> getList(BudgetAmount amount) {
+    public List<BudgetContent> getList(BudgetAmount amount) {
         return factory
-                .select(Projections.constructor(CategoryBudget.class,
-                        category.name,
+                .select(Projections.constructor(BudgetContent.class,
+                        budget.category.name,
                         getAverageAmount(amount)
                 ))
-                .from(category)
-                .join(category.budget, budget)
-                .groupBy(category.name)
+                .from(budget)
+                .join(budget.user, user)
+                .join(budget.category, category)
+                .groupBy(budget)
                 .fetch();
     }
 
@@ -39,6 +40,6 @@ public class CategoryQueryRepositoryImpl implements CategoryQueryRepository {
     }
 
     private NumberExpression<Double> calculateAverageRatio() {
-        return category.amount.sum().doubleValue().divide(budget.amount.sum()).multiply(100);
+        return budget.ratio.sum().divide(user.count());
     }
 }

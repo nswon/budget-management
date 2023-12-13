@@ -16,7 +16,7 @@ public class UserValidator {
     }
 
     public void validate(UserTarget target) {
-        if(existsBy(target.accout())) {
+        if(existsBy(target.account())) {
             throw new ApiException(ErrorType.DUPLICATE_ACCOUNT);
         }
     }

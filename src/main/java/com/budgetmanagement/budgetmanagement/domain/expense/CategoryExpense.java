@@ -1,4 +1,6 @@
 package com.budgetmanagement.budgetmanagement.domain.expense;
 
-public record CategoryTotal(int amount) {
+public record CategoryExpense(
+        int amount
+) {
 }

@@ -14,15 +14,15 @@ public class ExpenseReader {
         this.expenseQueryRepository = expenseQueryRepository;
     }
 
-    public Expense readBy(Long expenseId) {
+    public Expense readBy(long expenseId) {
         return expenseRepository.getById(expenseId);
     }
 
-    public ExpenseResult read(Long userId, String category, ExpenseRange range) {
+    public ExpenseReadResult read(long userId, String category, ExpenseRange range) {
         int totalAmount = expenseQueryRepository.getTotalAmount(userId, category, range);
-        List<CategoryTotal> categoryTotals = expenseQueryRepository.getCategoryTotalList(userId, category, range);
-        List<ExpenseContent> expenses = expenseQueryRepository.getExpenses(userId, category, range);
+        List<CategoryExpense> categories = expenseQueryRepository.getCategoryTotalList(userId, category, range);
+        List<ExpenseSummary> expenses = expenseQueryRepository.getExpenses(userId, category, range);
 
-        return new ExpenseResult(totalAmount, categoryTotals, expenses);
+        return new ExpenseReadResult(totalAmount, categories, expenses);
     }
 }

@@ -2,9 +2,9 @@ package com.budgetmanagement.budgetmanagement.domain.expense;
 
 import java.util.List;
 
-public record ExpenseResult(
+public record ExpenseReadResult(
         int totalAmount,
-        List<CategoryTotal> categoryTotals,
-        List<ExpenseContent> expenses
+        List<CategoryExpense> categories,
+        List<ExpenseSummary> expenses
 ) {
 }

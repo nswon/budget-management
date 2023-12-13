@@ -1,11 +1,15 @@
 package com.budgetmanagement.budgetmanagement.domain.budget;
 
-import com.budgetmanagement.budgetmanagement.domain.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.time.YearMonth;
-import java.util.Optional;
 
 public interface BudgetRepository extends JpaRepository<Budget, Long> {
-    Optional<Budget> findByUserAndMonth(User user, YearMonth month);
+
+    @Modifying
+    @Query("DELETE FROM Budget b where b.date = :date")
+    void deleteAllBy(@Param("date") YearMonth date);
 }

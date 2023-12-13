@@ -1,14 +1,18 @@
 package com.budgetmanagement.budgetmanagement.controller.expense.request;
 
-import com.budgetmanagement.budgetmanagement.domain.expense.ExpenseRecord;
+import com.budgetmanagement.budgetmanagement.domain.expense.ExpenseContent;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDateTime;
 
 public record ExpenseCreateRequest(
-        String date,
+        @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+        LocalDateTime date,
         int amount,
         String category,
         String memo
 ) {
-    public ExpenseRecord toRecord() {
-        return new ExpenseRecord(date, amount, category, memo);
+    public ExpenseContent toContent() {
+        return new ExpenseContent(date, amount, category, memo);
     }
 }

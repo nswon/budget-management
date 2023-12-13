@@ -8,8 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.YearMonth;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -24,22 +22,24 @@ public class Budget {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
+
     @Column(nullable = false)
     private int amount;
 
     @Column(nullable = false)
-    private YearMonth month;
+    private double ratio;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "budget")
-    private List<Category> categories = new ArrayList<>();
+    @Column(nullable = false)
+    private YearMonth date;
 
-    public Budget(User user, int amount, YearMonth month) {
+    public Budget(User user, Category category, int amount, double ratio, YearMonth date) {
         this.user = user;
+        this.category = category;
         this.amount = amount;
-        this.month = month;
-    }
-
-    public void addCategory(Category category) {
-        categories.add(category);
+        this.ratio = ratio;
+        this.date = date;
     }
 }

@@ -1,16 +1,16 @@
 package com.budgetmanagement.budgetmanagement.controller.expense.response;
 
-import com.budgetmanagement.budgetmanagement.domain.expense.ExpenseResult;
+import com.budgetmanagement.budgetmanagement.domain.expense.ExpenseReadResult;
 
 import java.util.List;
 
 public record ExpensesResponse(
         int totalAmount,
-        List<ExpenseCategoryTotalResponse> categoryTotals,
+        List<ExpenseCategoryTotalResponse> categories,
         List<ExpenseResponse> expenses
 ) {
-    public static ExpensesResponse of(ExpenseResult result) {
-        List<ExpenseCategoryTotalResponse> categoryTotals = result.categoryTotals().stream()
+    public static ExpensesResponse of(ExpenseReadResult result) {
+        List<ExpenseCategoryTotalResponse> categories = result.categories().stream()
                 .map(each -> new ExpenseCategoryTotalResponse(each.amount()))
                 .toList();
 
@@ -18,6 +18,6 @@ public record ExpensesResponse(
                 .map(each -> new ExpenseResponse(each.date(), each.amount(), each.category()))
                 .toList();
 
-        return new ExpensesResponse(result.totalAmount(), categoryTotals, expenses);
+        return new ExpensesResponse(result.totalAmount(), categories, expenses);
     }
 }

@@ -19,6 +19,6 @@ public class UserAppender {
     }
 
     private User newUser(UserTarget target) {
-        return new User(target.accout(), encryptor.encrypt(target.password()));
+        return new User(target.account(), encryptor.encrypt(target.password()));
     }
 }

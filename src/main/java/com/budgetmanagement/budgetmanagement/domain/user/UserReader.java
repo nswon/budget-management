@@ -13,7 +13,7 @@ public class UserReader {
     }
 
     public User readBy(UserTarget target) {
-        User user = userRepository.getByAccount(target.accout());
+        User user = userRepository.getByAccount(target.account());
 
         userValidator.validate(target, user);
 
