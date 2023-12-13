@@ -28,9 +28,8 @@ public class BudgetQueryRepositoryImpl implements BudgetQueryRepository {
                         getAverageAmount(amount)
                 ))
                 .from(budget)
-                .join(budget.user, user)
                 .join(budget.category, category)
-                .groupBy(budget)
+                .groupBy(budget.category)
                 .fetch();
     }
 

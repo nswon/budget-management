@@ -6,12 +6,12 @@ import java.util.List;
 
 public record ExpensesResponse(
         int totalAmount,
-        List<ExpenseCategoryTotalResponse> categories,
+        List<ExpenseCategoryResponse> categories,
         List<ExpenseResponse> expenses
 ) {
     public static ExpensesResponse of(ExpenseReadResult result) {
-        List<ExpenseCategoryTotalResponse> categories = result.categories().stream()
-                .map(each -> new ExpenseCategoryTotalResponse(each.amount()))
+        List<ExpenseCategoryResponse> categories = result.categories().stream()
+                .map(each -> new ExpenseCategoryResponse(each.category(), each.amount()))
                 .toList();
 
         List<ExpenseResponse> expenses = result.expenses().stream()

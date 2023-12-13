@@ -15,30 +15,18 @@ import static com.budgetmanagement.budgetmanagement.domain.expense.QExpense.expe
 public class ExpenseQueryRepositoryImpl implements ExpenseQueryRepository {
     private final JPAQueryFactory queryFactory;
 
+    //카테고리별 지출 합계 반환
     @Override
-    public int getTotalAmount(long userId, String category, ExpenseRange range) {
-        return queryFactory
-                .select(expense.amount.sum())
-                .from(expense)
-                .where(
-                        equalsUser(userId),
-                        expense.isExcluded.isFalse(),
-                        filteringCategory(category),
-                        filteringRange(range)
-                )
-                .fetchFirst();
-    }
-
-    //카테고리별 지출 합계를 반환
-    @Override
-    public List<CategoryExpense> getCategoryTotalList(long userId, String category, ExpenseRange range) {
+    public List<CategoryExpense> getCategoryTotalAmountList(long userId, String category, ExpenseRange range) {
         return queryFactory
                 .select(Projections.constructor(CategoryExpense.class,
+                        expense.category.name,
                         expense.amount.sum()
                 ))
                 .from(expense)
                 .where(
                         equalsUser(userId),
+                        expense.isExcluded.isFalse(),
                         filteringCategory(category),
                         filteringRange(range)
                 )

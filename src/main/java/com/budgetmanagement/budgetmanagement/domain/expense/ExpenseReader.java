@@ -19,10 +19,16 @@ public class ExpenseReader {
     }
 
     public ExpenseReadResult read(long userId, String category, ExpenseRange range) {
-        int totalAmount = expenseQueryRepository.getTotalAmount(userId, category, range);
-        List<CategoryExpense> categories = expenseQueryRepository.getCategoryTotalList(userId, category, range);
+        List<CategoryExpense> categories = expenseQueryRepository.getCategoryTotalAmountList(userId, category, range);
         List<ExpenseSummary> expenses = expenseQueryRepository.getExpenses(userId, category, range);
+        int totalAmount = getTotalAmount(categories);
 
         return new ExpenseReadResult(totalAmount, categories, expenses);
+    }
+
+    private int getTotalAmount(List<CategoryExpense> categories) {
+        return categories.stream()
+                .mapToInt(CategoryExpense::amount)
+                .sum();
     }
 }
