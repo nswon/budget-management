@@ -4,6 +4,7 @@ import com.budgetmanagement.budgetmanagement.domain.user.User;
 import com.budgetmanagement.budgetmanagement.domain.user.UserReader;
 import org.springframework.stereotype.Service;
 
+import java.time.YearMonth;
 import java.util.List;
 
 @Service
@@ -23,7 +24,7 @@ public class BudgetService {
     public void config(Long userId, BudgetAmount amount, BudgetRequest request) {
         User user = userReader.readBy(userId);
 
-        budgetManager.init();
+        budgetManager.init(user);
 
         budgetAppender.append(user, amount, request);
     }

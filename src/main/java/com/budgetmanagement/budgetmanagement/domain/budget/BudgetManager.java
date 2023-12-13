@@ -1,5 +1,6 @@
 package com.budgetmanagement.budgetmanagement.domain.budget;
 
+import com.budgetmanagement.budgetmanagement.domain.user.User;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,8 +15,8 @@ public class BudgetManager {
     }
 
     @Transactional
-    public void init() {
+    public void init(User user) {
         YearMonth thisMonth = YearMonth.now();
-        budgetRemover.remove(thisMonth);
+        budgetRemover.remove(user, thisMonth);
     }
 }

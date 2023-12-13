@@ -10,6 +10,9 @@ import java.time.YearMonth;
 public interface BudgetRepository extends JpaRepository<Budget, Long> {
 
     @Modifying
-    @Query("DELETE FROM Budget b where b.date = :date")
-    void deleteAllBy(@Param("date") YearMonth date);
+    @Query("DELETE FROM Budget b where b.user.id = :userId and b.date = :date")
+    void deleteAllBy(
+            @Param("userId") long userId,
+            @Param("date") YearMonth date
+    );
 }

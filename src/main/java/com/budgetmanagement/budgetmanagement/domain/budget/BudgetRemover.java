@@ -1,5 +1,6 @@
 package com.budgetmanagement.budgetmanagement.domain.budget;
 
+import com.budgetmanagement.budgetmanagement.domain.user.User;
 import org.springframework.stereotype.Component;
 
 import java.time.YearMonth;
@@ -12,7 +13,7 @@ public class BudgetRemover {
         this.budgetRepository = budgetRepository;
     }
 
-    public void remove(YearMonth date) {
-        budgetRepository.deleteAllBy(date);
+    public void remove(User user, YearMonth date) {
+        budgetRepository.deleteAllBy(user.getId(), date);
     }
 }
