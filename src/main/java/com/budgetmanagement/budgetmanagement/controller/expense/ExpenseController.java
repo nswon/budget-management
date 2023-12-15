@@ -7,7 +7,7 @@ import com.budgetmanagement.budgetmanagement.controller.expense.request.ExpenseU
 import com.budgetmanagement.budgetmanagement.controller.expense.response.ExpenseDetailResponse;
 import com.budgetmanagement.budgetmanagement.controller.expense.response.ExpensesResponse;
 import com.budgetmanagement.budgetmanagement.domain.expense.ExpenseContent;
-import com.budgetmanagement.budgetmanagement.domain.expense.ExpenseRange;
+import com.budgetmanagement.budgetmanagement.domain.expense.AmountRange;
 import com.budgetmanagement.budgetmanagement.domain.expense.ExpenseReadResult;
 import com.budgetmanagement.budgetmanagement.domain.expense.ExpenseService;
 import com.budgetmanagement.budgetmanagement.support.response.ApiResponse;
@@ -48,7 +48,7 @@ public class ExpenseController {
             @RequestParam(defaultValue = "0") int minAmount,
             @RequestParam(defaultValue = "0") int maxAmount
     ) {
-         ExpenseReadResult result = expenseService.getList(user.id(), category, new ExpenseRange(minAmount, maxAmount));
+         ExpenseReadResult result = expenseService.getList(user.id(), category, new AmountRange(minAmount, maxAmount));
         return ApiResponse.success(ExpensesResponse.of(result));
     }
 

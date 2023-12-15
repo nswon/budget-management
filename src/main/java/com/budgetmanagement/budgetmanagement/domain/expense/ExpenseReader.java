@@ -18,7 +18,7 @@ public class ExpenseReader {
         return expenseRepository.getById(expenseId);
     }
 
-    public ExpenseReadResult read(long userId, String category, ExpenseRange range) {
+    public ExpenseReadResult read(long userId, String category, AmountRange range) {
         List<CategoryExpense> categories = expenseQueryRepository.getCategoryTotalAmountList(userId, category, range);
         List<ExpenseSummary> expenses = expenseQueryRepository.getExpenses(userId, category, range);
         int totalAmount = getTotalAmount(categories);

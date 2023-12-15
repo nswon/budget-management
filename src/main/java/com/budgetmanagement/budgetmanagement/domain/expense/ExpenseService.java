@@ -35,7 +35,7 @@ public class ExpenseService {
         expenseUpdater.update(expense, content);
     }
 
-    public ExpenseReadResult getList(Long userId, String category, ExpenseRange range) {
+    public ExpenseReadResult getList(Long userId, String category, AmountRange range) {
         return expenseReader.read(userId, category, range);
     }
 

@@ -17,7 +17,7 @@ public class ExpenseQueryRepositoryImpl implements ExpenseQueryRepository {
 
     //카테고리별 지출 합계 반환
     @Override
-    public List<CategoryExpense> getCategoryTotalAmountList(long userId, String category, ExpenseRange range) {
+    public List<CategoryExpense> getCategoryTotalAmountList(long userId, String category, AmountRange range) {
         return queryFactory
                 .select(Projections.constructor(CategoryExpense.class,
                         expense.category.name,
@@ -35,7 +35,7 @@ public class ExpenseQueryRepositoryImpl implements ExpenseQueryRepository {
     }
 
     @Override
-    public List<ExpenseSummary> getExpenses(long userId, String category, ExpenseRange range) {
+    public List<ExpenseSummary> getExpenses(long userId, String category, AmountRange range) {
         return queryFactory
                 .select(Projections.constructor(ExpenseSummary.class,
                         expense.date,
@@ -64,7 +64,7 @@ public class ExpenseQueryRepositoryImpl implements ExpenseQueryRepository {
         return expense.category.name.eq(category);
     }
 
-    private BooleanExpression filteringRange(ExpenseRange range) {
+    private BooleanExpression filteringRange(AmountRange range) {
         return expense.amount.goe(range.minAmount()).and(expense.amount.loe(range.maxAmount()));
     }
 }

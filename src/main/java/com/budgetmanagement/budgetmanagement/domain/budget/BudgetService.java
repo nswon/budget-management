@@ -4,7 +4,6 @@ import com.budgetmanagement.budgetmanagement.domain.user.User;
 import com.budgetmanagement.budgetmanagement.domain.user.UserReader;
 import org.springframework.stereotype.Service;
 
-import java.time.YearMonth;
 import java.util.List;
 
 @Service
