@@ -30,6 +30,6 @@ public class BudgetAppender {
 
     private Budget newBudget(User user, BudgetAmount amount, BudgetContent content) {
         Category category = categoryReader.readBy(content.category());
-        return new Budget(user, category, content.amount(), amount.calculateRatio(content.amount()), YearMonth.now());
+        return new Budget(user, category, content.amount(), YearMonth.now());
     }
 }

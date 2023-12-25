@@ -30,16 +30,12 @@ public class Budget {
     private int amount;
 
     @Column(nullable = false)
-    private double ratio;
-
-    @Column(nullable = false)
     private YearMonth date;
 
-    public Budget(User user, Category category, int amount, double ratio, YearMonth date) {
+    public Budget(User user, Category category, int amount, YearMonth date) {
         this.user = user;
         this.category = category;
         this.amount = amount;
-        this.ratio = ratio;
         this.date = date;
     }
 }
