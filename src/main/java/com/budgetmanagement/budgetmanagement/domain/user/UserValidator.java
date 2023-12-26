@@ -16,13 +16,13 @@ public class UserValidator {
     }
 
     public void validate(UserTarget target) {
-        if(existsBy(target.account())) {
+        if(existsBy(target)) {
             throw new ApiException(ErrorType.DUPLICATE_ACCOUNT);
         }
     }
 
-    private boolean existsBy(String account) {
-        return userRepository.existsByAccount(account);
+    private boolean existsBy(UserTarget target) {
+        return userRepository.existsByAccount(target.account());
     }
 
     public void validate(UserTarget target, User user) {

@@ -24,7 +24,7 @@ public class QExpense extends EntityPathBase<Expense> {
 
     public final NumberPath<Integer> amount = createNumber("amount", Integer.class);
 
-    public final StringPath category = createString("category");
+    public final com.budgetmanagement.budgetmanagement.domain.category.QCategory category;
 
     public final DateTimePath<java.time.LocalDateTime> date = createDateTime("date", java.time.LocalDateTime.class);
 
@@ -54,6 +54,7 @@ public class QExpense extends EntityPathBase<Expense> {
 
     public QExpense(Class<? extends Expense> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
+        this.category = inits.isInitialized("category") ? new com.budgetmanagement.budgetmanagement.domain.category.QCategory(forProperty("category")) : null;
         this.user = inits.isInitialized("user") ? new com.budgetmanagement.budgetmanagement.domain.user.QUser(forProperty("user")) : null;
     }
 

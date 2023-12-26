@@ -24,11 +24,11 @@ public class QBudget extends EntityPathBase<Budget> {
 
     public final NumberPath<Integer> amount = createNumber("amount", Integer.class);
 
-    public final ListPath<com.budgetmanagement.budgetmanagement.domain.category.Category, com.budgetmanagement.budgetmanagement.domain.category.QCategory> categories = this.<com.budgetmanagement.budgetmanagement.domain.category.Category, com.budgetmanagement.budgetmanagement.domain.category.QCategory>createList("categories", com.budgetmanagement.budgetmanagement.domain.category.Category.class, com.budgetmanagement.budgetmanagement.domain.category.QCategory.class, PathInits.DIRECT2);
+    public final com.budgetmanagement.budgetmanagement.domain.category.QCategory category;
+
+    public final ComparablePath<java.time.YearMonth> date = createComparable("date", java.time.YearMonth.class);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
-
-    public final ComparablePath<java.time.YearMonth> month = createComparable("month", java.time.YearMonth.class);
 
     public final com.budgetmanagement.budgetmanagement.domain.user.QUser user;
 
@@ -50,6 +50,7 @@ public class QBudget extends EntityPathBase<Budget> {
 
     public QBudget(Class<? extends Budget> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
+        this.category = inits.isInitialized("category") ? new com.budgetmanagement.budgetmanagement.domain.category.QCategory(forProperty("category")) : null;
         this.user = inits.isInitialized("user") ? new com.budgetmanagement.budgetmanagement.domain.user.QUser(forProperty("user")) : null;
     }
 

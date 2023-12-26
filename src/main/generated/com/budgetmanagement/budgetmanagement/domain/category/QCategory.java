@@ -7,7 +7,6 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
-import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -18,37 +17,22 @@ public class QCategory extends EntityPathBase<Category> {
 
     private static final long serialVersionUID = 168939185L;
 
-    private static final PathInits INITS = PathInits.DIRECT2;
-
     public static final QCategory category = new QCategory("category");
-
-    public final NumberPath<Integer> amount = createNumber("amount", Integer.class);
-
-    public final com.budgetmanagement.budgetmanagement.domain.budget.QBudget budget;
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final StringPath name = createString("name");
 
     public QCategory(String variable) {
-        this(Category.class, forVariable(variable), INITS);
+        super(Category.class, forVariable(variable));
     }
 
     public QCategory(Path<? extends Category> path) {
-        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
+        super(path.getType(), path.getMetadata());
     }
 
     public QCategory(PathMetadata metadata) {
-        this(metadata, PathInits.getFor(metadata, INITS));
-    }
-
-    public QCategory(PathMetadata metadata, PathInits inits) {
-        this(Category.class, metadata, inits);
-    }
-
-    public QCategory(Class<? extends Category> type, PathMetadata metadata, PathInits inits) {
-        super(type, metadata, inits);
-        this.budget = inits.isInitialized("budget") ? new com.budgetmanagement.budgetmanagement.domain.budget.QBudget(forProperty("budget"), inits.get("budget")) : null;
+        super(Category.class, metadata);
     }
 
 }
