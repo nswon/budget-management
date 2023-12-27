@@ -27,7 +27,7 @@ public class BudgetController {
             @AuthenticationPrincipal LoginUser user,
             @RequestBody @Valid BudgetConfigRequest request
     ) {
-        budgetService.config(user.id(), request.toAmount(), request.toContents());
+        budgetService.config(user.id(), request.toRequest());
         return ApiResponse.success();
     }
 

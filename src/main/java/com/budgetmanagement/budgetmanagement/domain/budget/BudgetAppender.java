@@ -20,15 +20,15 @@ public class BudgetAppender {
     }
 
     @Transactional
-    public void append(User user, BudgetAmount amount, BudgetRequest request) {
+    public void append(User user, BudgetRequest request) {
         List<Budget> budgets = request.contents().stream()
-                .map(each -> newBudget(user, amount, each))
+                .map(each -> newBudget(user, each))
                 .toList();
 
         budgetRepository.saveAll(budgets);
     }
 
-    private Budget newBudget(User user, BudgetAmount amount, BudgetContent content) {
+    private Budget newBudget(User user, BudgetContent content) {
         Category category = categoryReader.readBy(content.category());
         return new Budget(user, category, content.amount(), YearMonth.now());
     }

@@ -20,12 +20,12 @@ public class BudgetService {
         this.budgetRecommender = budgetRecommender;
     }
 
-    public void config(Long userId, BudgetAmount amount, BudgetRequest request) {
+    public void config(Long userId, BudgetRequest request) {
         User user = userReader.readBy(userId);
 
         budgetManager.init(user);
 
-        budgetAppender.append(user, amount, request);
+        budgetAppender.append(user, request);
     }
 
     public List<BudgetContent> recommend(BudgetAmount amount) {

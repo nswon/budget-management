@@ -1,6 +1,5 @@
 package com.budgetmanagement.budgetmanagement.controller.budget.request;
 
-import com.budgetmanagement.budgetmanagement.domain.budget.BudgetAmount;
 import com.budgetmanagement.budgetmanagement.domain.budget.BudgetContent;
 import com.budgetmanagement.budgetmanagement.domain.budget.BudgetRequest;
 import jakarta.validation.Valid;
@@ -8,11 +7,7 @@ import jakarta.validation.constraints.Min;
 
 import java.util.List;
 
-public record BudgetConfigRequest(
-        @Min(value = 0, message = "최소 금액은 0원입니다.")
-        int amount,
-        @Valid List<Budget> budgets
-) {
+public record BudgetConfigRequest(@Valid List<Budget> budgets) {
 
     public record Budget(
             String category,
@@ -20,11 +15,7 @@ public record BudgetConfigRequest(
             int amount
     ) {}
 
-    public BudgetAmount toAmount() {
-        return new BudgetAmount(amount);
-    }
-
-    public BudgetRequest toContents() {
+    public BudgetRequest toRequest() {
         List<BudgetContent> contents = budgets.stream()
                 .map(each -> new BudgetContent(each.category, each.amount))
                 .toList();
